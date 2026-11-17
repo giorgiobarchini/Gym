@@ -580,7 +580,109 @@ if (S.active && !validActive(S.active)) S.active = null;
 for (const k in S.days) { const d = S.days[k]; if (d) { d.done ||= {}; d.skip ||= {}; } }
 if (!S.settings.startDate) { S.settings.startDate = dkey(new Date()); }
 
+let warnedWrite = false;
+function makeRunner() {
+  const q = new Map();
+  return (key, fn) => { const p = (q.get(key) || Promise.resolve()).then(fn).catch(e => { console.error("write", key, e); if (!warnedWrite) { warnedWrite = true; toast("No pude guardar en la nube. Queda guardado en este teléfono."); } }); q.set(key, p); };
+}
+let firstSync = true;
+// list: [{ id, data }] — the whole user collection as the cloud has it
+function applyRemote(list) {
+  if (firstSync && !list.length) {
+    firstSync = false;
+    // first time in the cloud: upload what this phone has
+    saveSettings(); for (const k in S.days) saveDay(k); for (const k in S.weights) put("w-" + k, S.weights[k]); for (const x of S.sessions) saveSession(x); if (S.active) saveSession(S.active);
+    return;
+  }
+  firstSync = false;
+  const newer = (loc, rem) => loc && (loc._t || 0) > (rem._t || 0);
+  const finished = [], open = [], seen = new Set();
+  for (const d of list) {
+    const v = JSON.parse(JSON.stringify(d.data || {})), k = d.id; seen.add(k);
+    if (k === "settings") { if (!newer(S.settings, v)) { S.settings = migrateSettings(v); applyStage(); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } } }
+    else if (k.startsWith("day-")) { const key = k.slice(4); if (!newer(S.days[key], v)) { v.done ||= {}; v.skip ||= {}; S.days[key] = v; } }
+    else if (k.startsWith("w-")) { const key = k.slice(2); if (!newer(S.weights[key], v)) S.weights[key] = v; }
+    else if (v.kind === "session") {
+      const loc = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null);
+      const use = newer(loc, v) ? loc : { ...v, id: k };
+      (use.finished ? finished : open).push(use);
+    }
+  }
+  // local sessions the cloud does not show (not uploaded yet, or a failed write): keep them and upload again
+  for (const x of S.sessions) if (!seen.has(x.id)) { finished.push(x); if (Date.now() - (x._t || 0) > 15000) saveSession(x); }
+  if (S.active && !seen.has(S.active.id)) { open.push(S.active); if (Date.now() - (S.active._t || 0) > 15000) saveSession(S.active); }
+  // clean up unfinished sessions: keep only the newest valid one
+  open.sort((a, b) => (b.start || 0) - (a.start || 0));
+  let active = null;
+  for (const x of open) {
+    if (!active && validActive(x)) { active = x; continue; }
+    if (anyDone(x)) { x.finished = true; x.end = x.end || x.start; x.exercises = x.exercises.filter(e => (e.sets || []).some(z => z.done)); finished.push(x); saveSession(x); }
+    else del(x.id);
+  }
+  S.sessions = finished.sort((a, b) => b.start - a.start);
+  S.active = active;
+  lsSave();
+  if (!$("#focus").innerHTML && !$("#sheet").innerHTML && !document.activeElement?.matches("input,textarea,select")) render();
+}
+
+/* ---- cloud option 1: Supabase (when the page is hosted on its own, with config.js) ---- */
+const SUPA = !window.claude?.use && window.GYM_CONFIG?.supabaseUrl && window.GYM_CONFIG?.supabaseKey ? window.GYM_CONFIG : null;
+let sb = null;
+async function initSupabase() {
+  if (!window.supabase?.createClient) { toast("No pude conectar con Supabase. Uso solo este teléfono."); return; }
+  sb = window.supabase.createClient(SUPA.supabaseUrl, SUPA.supabaseKey, { auth: { persistSession: true, autoRefreshToken: true } });
+  let session = (await sb.auth.getSession()).data.session;
+  if (!session) session = await showLogin();
+  const uid = session.user.id, T = "gym_docs";
+  const run = makeRunner();
+  remote = {
+    put: (k, d) => run(k, async () => { const { error } = await sb.from(T).upsert({ user_id: uid, id: k, data: d, updated_at: new Date().toISOString() }); if (error) throw error; }),
+    del: k => run(k, async () => { const { error } = await sb.from(T).delete().eq("user_id", uid).eq("id", k); if (error) throw error; }),
+  };
+  let pulling = false;
+  const pull = async () => {
+    if (pulling) return; pulling = true;
+    try { const { data, error } = await sb.from(T).select("id,data").eq("user_id", uid); if (error) throw error; applyRemote(data || []); }
+    catch (e) { console.error("pull", e); }
+    finally { pulling = false; }
+  };
+  await pull();
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") pull(); });
+  setInterval(pull, 90000);
+}
+function showLogin() {
+  return new Promise(resolve => {
+    const el = document.createElement("div");
+    el.className = "focus"; el.id = "login";
+    el.innerHTML = `<div class="in" style="justify-content:center">
+      <h2>Cuaderno de Gym</h2>
+      <p class="sub" style="text-align:center">Entrá con tu cuenta para que tus entrenamientos se guarden en la nube.</p>
+      <form id="login-form" class="card">
+        <label class="label" for="lg-email">Email</label><input id="lg-email" type="email" autocomplete="email" required>
+        <label class="label" for="lg-pass">Contraseña</label><input id="lg-pass" type="password" autocomplete="current-password" minlength="6" required>
+        <button class="btn primary big block" type="submit" id="lg-go">Entrar</button>
+        <button class="btn ghost" type="button" id="lg-mode">No tengo cuenta: crear una</button>
+        <p class="sub small" id="lg-msg" role="status"></p>
+      </form></div>`;
+    document.body.appendChild(el);
+    let signup = false;
+    const msg = t => el.querySelector("#lg-msg").textContent = t;
+    el.querySelector("#lg-mode").onclick = () => { signup = !signup; el.querySelector("#lg-go").textContent = signup ? "Crear cuenta" : "Entrar"; el.querySelector("#lg-mode").textContent = signup ? "Ya tengo cuenta: entrar" : "No tengo cuenta: crear una"; msg(""); };
+    el.querySelector("#login-form").onsubmit = async ev => {
+      ev.preventDefault();
+      const email = el.querySelector("#lg-email").value.trim(), password = el.querySelector("#lg-pass").value;
+      msg(signup ? "Creando la cuenta…" : "Entrando…");
+      const { data, error } = signup ? await sb.auth.signUp({ email, password }) : await sb.auth.signInWithPassword({ email, password });
+      if (error) { msg(error.message.includes("Invalid login") ? "Email o contraseña incorrectos." : "No se pudo: " + error.message); return; }
+      if (!data.session) { msg("Te mandamos un mail para confirmar la cuenta. Confirmala y después entrá."); signup = false; el.querySelector("#lg-go").textContent = "Entrar"; return; }
+      el.remove(); resolve(data.session);
+    };
+  });
+}
+
+/* ---- cloud option 2: the Claude artifact database ---- */
 async function initDb() {
+  if (SUPA) return initSupabase();
   if (!window.claude?.use) return;
   let db, user;
   try { [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]); } catch { return; }
@@ -588,47 +690,9 @@ async function initDb() {
   let id; try { id = await user.id(); } catch { return; }
   if (!id) return;
   const col = db.collection("data/users/" + id);
-  const q = new Map();
-  const run = (key, fn) => { const p = (q.get(key) || Promise.resolve()).then(fn).catch(() => {}); q.set(key, p); };
+  const run = makeRunner();
   remote = { put: (k, d) => run(k, () => col.doc(k).set(d)), del: k => run(k, () => col.doc(k).delete()) };
-  let first = true;
-  col.onSnapshot(snap => {
-    if (first && snap.empty) {
-      first = false;
-      // first time in the cloud: upload what this phone has
-      saveSettings(); for (const k in S.days) saveDay(k); for (const k in S.weights) put("w-" + k, S.weights[k]); for (const x of S.sessions) saveSession(x); if (S.active) saveSession(S.active);
-      return;
-    }
-    first = false;
-    const newer = (loc, rem) => loc && (loc._t || 0) > (rem._t || 0);
-    const finished = [], open = [], seen = new Set();
-    for (const d of snap.docs) {
-      const v = d.data() || {}, k = d.id; seen.add(k);
-      if (k === "settings") { if (!newer(S.settings, v)) { S.settings = migrateSettings(v); applyStage(); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } } }
-      else if (k.startsWith("day-")) { const key = k.slice(4); if (!newer(S.days[key], v)) S.days[key] = v; }
-      else if (k.startsWith("w-")) { const key = k.slice(2); if (!newer(S.weights[key], v)) S.weights[key] = v; }
-      else if (v.kind === "session") {
-        const loc = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null);
-        const use = newer(loc, v) ? loc : { ...v, id: k };
-        (use.finished ? finished : open).push(use);
-      }
-    }
-    // keep local sessions written in the last seconds that the cloud does not show yet
-    for (const x of S.sessions) if (!seen.has(x.id) && Date.now() - (x._t || 0) < 15000) finished.push(x);
-    if (S.active && !seen.has(S.active.id) && Date.now() - (S.active._t || 0) < 15000) open.push(S.active);
-    // clean up unfinished sessions: keep only the newest valid one
-    open.sort((a, b) => (b.start || 0) - (a.start || 0));
-    let active = null;
-    for (const x of open) {
-      if (!active && validActive(x)) { active = x; continue; }
-      if (anyDone(x)) { x.finished = true; x.end = x.end || x.start; x.exercises = x.exercises.filter(e => (e.sets || []).some(z => z.done)); finished.push(x); saveSession(x); }
-      else del(x.id);
-    }
-    S.sessions = finished.sort((a, b) => b.start - a.start);
-    S.active = active;
-    lsSave();
-    if (!$("#focus").innerHTML) render();
-  }, () => {});
+  col.onSnapshot(snap => applyRemote(snap.docs.map(d => ({ id: d.id, data: d.data() }))), () => {});
 }
 
 /* =====================================================================
@@ -951,6 +1015,7 @@ function viewMe() {
       <div class="set-grid">${[1, 2, 3, 4, 5, 6, 0].map(wd => `<label for="wk-${wd}">${DOW_L[wd]}<select id="wk-${wd}" data-week="${wd}">${Object.keys(DAYTYPE).map(x => `<option value="${x}" ${S.settings.week[wd] === x ? "selected" : ""}>${DAYTYPE[x].label}${SESS[x] ? " · " + SESS[x].name : ""}</option>`).join("")}</select></label>`).join("")}</div>
       <p class="sub small">Recomendado: 5 días, cada músculo 2 veces por semana. Si un día no podés, mové ese entrenamiento, no lo saltees.</p>
       <button class="btn sm ghost" data-act="restart">Reiniciar el programa desde la semana 1</button>
+      ${SUPA ? `<button class="btn sm ghost" data-act="logout">Cerrar sesión</button>` : ""}
     </div>`;
 }
 function drawSpark() {
@@ -1028,7 +1093,7 @@ function startWorkout(type, minimal) {
   F = { phase: "warm" }; renderFocus();
 }
 function resume() { if (!validActive(S.active)) { S.active = null; render(); return; } closeSheet(); unlockAudio(); keepAwake(true); const a = S.active; F = { phase: a.idx < 0 ? "warm" : "work" }; renderFocus(); }
-function cur() { const a = S.active; return a.exercises[a.idx]; }
+function cur() { const a = S.active; return a && a.exercises[a.idx]; }
 function persist() { if (S.active) { S.active._dirty = true; saveSession(S.active); setTimeout(() => S.active && (S.active._dirty = false), 4500); } }
 function nextStep() {
   const a = S.active, e = cur();
@@ -1116,6 +1181,7 @@ function renderFocus() {
    ===================================================================== */
 document.addEventListener("click", ev => { try { onClick(ev); } catch (e) { console.error(e); toast("Algo falló. Probá de nuevo."); } });
 function onClick(ev) {
+  if (ev.target.closest("[data-act^='f-']") && !S.active) { clearInterval(fInt); F = null; $("#focus").innerHTML = ""; closeSheet(); render(); toast("El entrenamiento se cerró. Empezalo de nuevo desde Hoy."); return; }
   const t = ev.target.closest("[data-tab],[data-act],[data-close]");
   if (!t) return;
   if (t.dataset.close) { if (ev.target === t || t.tagName === "BUTTON") closeSheet(); return; }
@@ -1148,6 +1214,7 @@ function onClick(ev) {
     }
     case "restart": if (t.dataset.sure) { S.settings.startDate = k; saveSettings(); render(); toast("Arrancás de nuevo en la semana 1"); } else { t.dataset.sure = 1; t.textContent = "Tocá de nuevo para confirmar"; } break;
     case "stage": if (t.dataset.sure) { S.settings.stage = +t.dataset.to; applyStage(); saveSettings(); render(); scrollTo(0, 0); toast(STAGES[S.settings.stage].name); } else { t.dataset.sure = 1; t.textContent = "Tocá de nuevo para confirmar"; } break;
+    case "logout": if (sb) sb.auth.signOut().finally(() => { try { localStorage.removeItem(LS); } catch {} location.reload(); }); break;
     case "shop-clear": S.settings.shop = {}; saveSettings(); render(); break;
     case "ai-meal": aiMeal(); break;
     case "coach": aiCoach(); break;
