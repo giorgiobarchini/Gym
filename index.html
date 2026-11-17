@@ -346,8 +346,6 @@ const EX = {
     A: { at: { j: "a1", x: 20, y: 90 }, t: 35, q1: 125, s1: 205, u1: 240, f1: 230 }, B: { at: { j: "a1", x: 70, y: 90 }, arc: 20, t: 30, q1: 118, s1: 205, u1: 75, f1: 65 } },
   skater: { n: "Saltos laterales (patinador)", zone: "legs", w: false, view: "front", arc: 10, period: 1.8, q: "skater jumps", cues: ["Saltá de costado de un pie al otro, lo más lejos que puedas.", "Caé sobre una pierna, frená y estabilizá un segundo.", "Es el primer paso lateral de cualquier deporte."], easier: "Paso lateral sin saltar.", harder: "Más distancia y sin pausa.",
     A: { hd: [27, 29], s1: [35, 36], s2: [21, 38], e1: [43, 44], w1: [50, 51], e2: [15, 46], w2: [12, 56], p1: [35, 61], p2: [27, 62], k1: [40, 75], k2: [24, 76], a1: [31, 81], a2: [29, 90], t1: [27, 83], t2: [24, 90] }, B: "mirror" },
-  slsquat: { n: "Sentadilla a una pierna con alcance cruzado", zone: "legs", w: true, step: 2, q: "single leg squat contralateral reach dumbbell", cues: ["Parado en una pierna, la mancuerna en la mano contraria.", "Bajá en una pierna llevando la mancuerna hacia el piso, por fuera del pie de apoyo.", "Subí apretando la cola. Trabaja pierna, cadera, core y equilibrio a la vez."], easier: "Sin peso, o tocá un cajón en vez del piso.", harder: "Más peso → pistol squat sin apoyo.",
-    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 50, y: 90 }, t: 5, q2: 195, s2: 215, u2: 200, f2: 200 }, B: { at: { j: "a1", x: 50, y: 90 }, t: 50, q1: 105, s1: 200, q2: 222, s2: 245, u1: 165, f1: 170, u2: 235, f2: 235 } },
   slrdl: { n: "Peso muerto a una pierna", zone: "legs", w: true, step: 2, q: "single leg romanian deadlift dumbbell", cues: ["Mancuerna en la mano contraria a la pierna de apoyo.", "Inclinate como un subibaja: el pecho baja y la pierna de atrás sube, todo recto.", "Volvé apretando la cola. Cadera mirando al piso, sin abrirla."], easier: "Apoyá la punta del pie de atrás en el piso.", harder: "Más peso o pausa de 2 s abajo.",
     props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 55, y: 90 }, t: 3, q2: 190, s2: 195 }, B: { at: { j: "a1", x: 55, y: 90 }, t: 85, q1: 172, s1: 180, q2: 268, s2: 270, ft2: 180 } },
   revlunge: { n: "Zancada atrás con rotación", zone: "legs", w: true, step: 2, q: "reverse lunge with rotation dumbbell", cues: ["Mancuerna agarrada con las dos manos frente al pecho.", "Paso largo hacia atrás y bajá hasta casi tocar el piso con la rodilla.", "Abajo, girá el torso hacia la pierna de adelante. Volvé al centro y subí."], easier: "Sin peso y sin rotación.", harder: "Mancuerna más pesada, brazos estirados al girar.",
@@ -388,6 +386,46 @@ const EX = {
     A: { at: { j: "p", x: 42, y: 64 }, t: 90, u1: 170, f1: 172, u2: 190, f2: 188, q1: 165, s1: 255, q2: 195, s2: 255, ft1: 160, ft2: 160 }, B: { at: { j: "p", x: 42, y: 63 }, t: 90, u1: 190, f1: 188, u2: 170, f2: 172, q1: 195, s1: 255, q2: 165, s2: 255, ft1: 160, ft2: 160 } },
   jumprope: { n: "Soga", zone: "rest", w: false, unit: "seg", loop: true, period: .5, q: "saltar la soga principiante", cues: ["Saltitos cortos en puntas de pie.", "Las muñecas giran la soga, no los brazos.", "Si no hay soga, hacé el gesto igual."], easier: "Saltá cada dos vueltas.", harder: "Alternando pies o dobles.",
     props: [{ k: "cable", from: "w1", x: 40, y: 94 }], A: { at: { j: "a1", x: 50, y: 90 }, ft1: 125, u1: 200, f1: 120 }, B: { at: { j: "a1", x: 50, y: 85 }, ft1: 135, u1: 200, f1: 125 } },
+  squat: { n: "Sentadilla con barra", zone: "legs", w: true, step: 2.5, q: "sentadilla con barra", cues: ["Barra sobre la espalda alta, pies al ancho de hombros.", "Sentate hacia atrás y abajo, pecho arriba, rodillas siguen a los pies.", "Bajá hasta que el muslo quede paralelo y subí empujando el piso."],
+    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 48, y: 90 }, t: 4, u1: 225, f1: 20 }, B: { at: { j: "a1", x: 48, y: 90 }, t: 40, q1: 95, s1: 200, u1: 262, f1: 58 } },
+  rdl: { n: "Peso muerto rumano", zone: "legs", w: true, step: 2.5, q: "peso muerto rumano", cues: ["Rodillas apenas flexionadas, la barra pegada a las piernas.", "Mandá la cola hacia atrás como cerrando una puerta con el culo.", "Bajá hasta sentir el estiramiento atrás del muslo, espalda recta."],
+    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 40, y: 90 }, t: 4 }, B: { at: { j: "a1", x: 40, y: 90 }, t: 58, q1: 140, s1: 178 } },
+  bulgarian: { n: "Zancada búlgara", zone: "legs", w: true, step: 1, q: "sentadilla búlgara", cues: ["Pie de atrás apoyado en el banco, el de adelante a un paso largo.", "Bajá recto, la rodilla de atrás casi toca el piso.", "Empujá con el talón de adelante. Hacé todas con una pierna y cambiá."],
+    props: [{ k: "rect", x: 10, y: 74, w: 26, h: 17 }, { k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 58, y: 90 }, t: 5, q1: 165, s1: 180, q2: 205, s2: 250, ft2: 260 }, B: { at: { j: "a1", x: 58, y: 90 }, t: 12, q1: 110, s1: 195, q2: 175, s2: 300, ft2: 280 } },
+  calf: { n: "Gemelos de pie", zone: "legs", w: true, step: 2, q: "elevación de gemelos de pie", cues: ["Subí bien arriba en puntas de pie.", "Aguantá un segundo arriba.", "Bajá lento hasta estirar del todo."],
+    props: [{ k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 50, y: 90 }, ft1: 90 }, B: { at: { j: "a1", x: 50, y: 85.5 }, ft1: 140 } },
+  plank: { n: "Plancha", zone: "rest", w: false, unit: "seg", q: "plancha abdominal", cues: ["Codos debajo de los hombros.", "Apretá cola y abdomen como si te fueran a pegar en la panza.", "Cuerpo en línea recta, no dejes caer la cadera."],
+    A: { at: { j: "e1", x: 74, y: 88 }, t: 96, u1: 180, f1: 90, q1: 250, s1: 250, ft1: 180 }, B: { at: { j: "e1", x: 74, y: 88 }, t: 93, u1: 180, f1: 90, q1: 252, s1: 252, ft1: 180 } },
+  bench: { n: "Press de banca", zone: "upper", w: true, step: 2.5, q: "press de banca", cues: ["Ojos debajo de la barra, pies firmes en el piso.", "Bajá controlado hasta tocar el pecho a la altura de los pezones.", "Empujá fuerte hacia arriba sin despegar la cola del banco."],
+    props: [{ k: "rect", x: 14, y: 64, w: 54, h: 5 }, { k: "line", x1: 22, y1: 69, x2: 22, y2: 91 }, { k: "line", x1: 60, y1: 69, x2: 60, y2: 91 }, { k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "p", x: 60, y: 60.5 }, t: 270, u1: 0, f1: 0, q1: 115, s1: 180 }, B: { at: { j: "p", x: 60, y: 60.5 }, t: 270, u1: 125, f1: 355, q1: 115, s1: 180 } },
+  row: { n: "Remo con barra", zone: "court", w: true, step: 2.5, q: "remo con barra", cues: ["Inclinate hacia adelante con la espalda recta, rodillas flojas.", "Tirá la barra hacia el ombligo llevando los codos atrás.", "Apretá la espalda arriba un segundo y bajá lento."],
+    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178 }, B: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, u1: 248, f1: 172 } },
+  ohp: { n: "Press militar con mancuernas", zone: "upper", w: true, step: 1, q: "press militar mancuernas", cues: ["Mancuernas a la altura de los hombros, abdomen firme.", "Empujá recto hacia arriba hasta estirar los brazos.", "No arquees la espalda: apretá la cola."],
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 50, y: 90 }, u1: 200, f1: 10 }, B: { at: { j: "a1", x: 50, y: 90 }, u1: 5, f1: 0 } },
+  lateral: { n: "Elevaciones laterales", zone: "upper", w: true, step: 1, view: "front", q: "elevaciones laterales mancuernas", cues: ["Mancuernas livianas, codos apenas flexionados.", "Subí los brazos hacia los costados hasta la altura de los hombros.", "Bajá lento en 2 segundos. Nada de balanceo."],
+    props: [{ k: "db", at: "w1" }, { k: "db", at: "w2" }],
+    A: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [60, 36], w1: [61, 49], e2: [40, 36], w2: [39, 49], p1: [55, 50], p2: [45, 50], k1: [56, 70], k2: [44, 70], a1: [56, 90], a2: [44, 90], t1: [61, 90], t2: [39, 90] },
+    B: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [71, 24], w1: [84, 25], e2: [29, 24], w2: [16, 25], p1: [55, 50], p2: [45, 50], k1: [56, 70], k2: [44, 70], a1: [56, 90], a2: [44, 90], t1: [61, 90], t2: [39, 90] } },
+  hipthrust: { n: "Hip thrust", zone: "legs", w: true, step: 2.5, q: "hip thrust con barra", cues: ["Espalda alta apoyada en el banco, barra sobre la cadera (con almohadilla).", "Subí la cadera hasta que el cuerpo quede como una mesa.", "Apretá la cola fuerte arriba 1 segundo."],
+    props: [{ k: "rect", x: 4, y: 64, w: 24, h: 27 }, { k: "plate", at: "w1", r: 7.5, dy: -4 }], A: { at: { j: "s", x: 28, y: 62 }, t: 300, u1: 120, f1: 120, q1: 70, s1: 180 }, B: { at: { j: "s", x: 28, y: 62 }, t: 275, u1: 97, f1: 95, q1: 100, s1: 180 } },
+  legcurl: { n: "Curl femoral en máquina", zone: "legs", w: true, step: 2.5, q: "curl femoral acostado máquina", cues: ["Acostado boca abajo, el rodillo justo arriba de los talones.", "Llevá los talones hacia la cola.", "Bajá lento, en 3 segundos."],
+    props: [{ k: "rect", x: 14, y: 68, w: 70, h: 4 }, { k: "line", x1: 30, y1: 72, x2: 30, y2: 91 }, { k: "line", x1: 70, y1: 72, x2: 70, y2: 91 }, { k: "pad", at: "a1", dy: -3 }], A: { at: { j: "p", x: 48, y: 64.5 }, t: 90, h: 92, u1: 160, f1: 200, q1: 270, s1: 270, ft1: 180 }, B: { at: { j: "p", x: 48, y: 64.5 }, t: 90, h: 92, u1: 160, f1: 200, q1: 270, s1: 20, ft1: 110 } },
+  slam: { n: "Slam con balón", zone: "upper", w: false, q: "medicine ball slam", cues: ["Balón arriba de la cabeza, en puntas de pie.", "Estrellalo contra el piso con toda la fuerza del abdomen.", "Agarralo y repetí. Sacá la bronca."],
+    props: [{ k: "ball", at: "w1", r: 6.5, dy: -3 }], A: { at: { j: "a1", x: 46, y: 90 }, t: -5, u1: 10, f1: 5 }, B: { at: { j: "a1", x: 46, y: 90 }, t: 50, q1: 110, s1: 200, u1: 150, f1: 175 } },
+  incline: { n: "Press inclinado con mancuernas", zone: "upper", w: true, step: 1, q: "press inclinado mancuernas", cues: ["Banco a 30–45 grados.", "Bajá las mancuernas a los costados del pecho, codos a 45°.", "Empujá hacia arriba juntándolas un poco."],
+    props: [{ k: "line", x1: 50, y1: 72, x2: 24, y2: 42, w: 5 }, { k: "rect", x: 40, y: 70, w: 26, h: 4 }, { k: "line", x1: 50, y1: 74, x2: 50, y2: 91 }, { k: "db", at: "w1" }], A: { at: { j: "p", x: 47, y: 67 }, t: 320, q1: 95, s1: 185, u1: 32, f1: 30 }, B: { at: { j: "p", x: 47, y: 67 }, t: 320, q1: 95, s1: 185, u1: 212, f1: 28 } },
+  latpull: { n: "Jalón al pecho", zone: "court", w: true, step: 2.5, q: "jalón al pecho polea", cues: ["Agarre ancho, muslos trabados debajo del rodillo.", "Tirá la barra al pecho llevando los codos abajo y atrás.", "Subí lento hasta estirar los brazos."],
+    props: [{ k: "rect", x: 32, y: 67, w: 26, h: 4 }, { k: "line", x1: 45, y1: 71, x2: 45, y2: 91 }, { k: "rect", x: 56, y: 58, w: 10, h: 4 }, { k: "cable", from: "w1", x: 54, y: -8 }, { k: "bar", at: "w1" }], A: { at: { j: "p", x: 45, y: 65 }, t: 350, q1: 90, s1: 178, u1: 14, f1: 10 }, B: { at: { j: "p", x: 45, y: 65 }, t: 345, q1: 90, s1: 178, u1: 165, f1: 18 } },
+  dbrow: { n: "Remo con mancuerna", zone: "court", w: true, step: 1, q: "remo con mancuerna a una mano", cues: ["Una mano apoyada en la rodilla o en un banco.", "Tirá la mancuerna hacia el bolsillo, el codo pegado al cuerpo.", "Hacé todas de un lado y cambiá."],
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, q2: 165, s2: 185, u2: 150, f2: 178 }, B: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, q2: 165, s2: 185, u1: 250, f1: 172, u2: 150, f2: 178 } },
+  facepull: { n: "Face pull", zone: "court", w: true, step: 2.5, q: "face pull polea", cues: ["Polea a la altura de la cara, soga con las dos manos.", "Tirá hacia la frente abriendo los codos alto.", "Cuida los hombros: clave para tirar y rebotear."],
+    props: [{ k: "cable", from: "w1", x: 99, y: 18 }, { k: "rect", x: 96, y: 0, w: 4, h: 91 }], A: { at: { j: "a1", x: 38, y: 90 }, t: 355, q1: 172, s1: 185, q2: 195, s2: 180, u1: 82, f1: 84 }, B: { at: { j: "a1", x: 38, y: 90 }, t: 355, q1: 172, s1: 185, q2: 195, s2: 180, u1: 280, f1: 62 } },
+  curl: { n: "Curl de bíceps", zone: "court", w: true, step: 1, q: "curl de bíceps mancuernas", cues: ["Codos pegados al cuerpo, quietos.", "Subí sin balancear la espalda.", "Bajá lento hasta estirar del todo."],
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 48, y: 90 }, u1: 182, f1: 180 }, B: { at: { j: "a1", x: 48, y: 90 }, u1: 176, f1: 25 } },
+  legpress: { n: "Prensa de piernas", zone: "legs", w: true, step: 5, q: "prensa de piernas 45", cues: ["Espalda y cola bien apoyadas en el respaldo.", "Bajá hasta que las rodillas lleguen cerca del pecho sin que se despegue la cola.", "Empujá con todo el pie, sin trabar las rodillas arriba."], easier: "Menos rango o menos peso.", harder: "Pausa de 1 s abajo o a una pierna.",
+    props: [{ k: "line", x1: 40, y1: 68, x2: 20, y2: 42, w: 5 }, { k: "rect", x: 28, y: 66, w: 22, h: 4 }, { k: "line", x1: 40, y1: 70, x2: 40, y2: 91 }, { k: "plate", at: "a1", r: 7, dx: 4, dy: -3 }], A: { at: { j: "p", x: 40, y: 64 }, t: 322, q1: 15, s1: 117, ft1: 30, u1: 170, f1: 120 }, B: { at: { j: "p", x: 40, y: 64 }, t: 322, q1: 55, s1: 55, ft1: 145, u1: 170, f1: 120 } },
+  pushdown: { n: "Extensión de tríceps en polea", zone: "upper", w: true, step: 2.5, q: "extensión de tríceps en polea", cues: ["Codos pegados a los costados, quietos.", "Estirá los brazos del todo abajo y apretá el tríceps.", "Subí lento hasta la altura del pecho."], easier: "Menos peso.", harder: "Pausa de 1 s abajo.",
+    props: [{ k: "cable", from: "w1", x: 62, y: -8 }, { k: "bar", at: "w1" }], A: { at: { j: "a1", x: 46, y: 90 }, t: 8, u1: 178, f1: 40 }, B: { at: { j: "a1", x: 46, y: 90 }, t: 8, u1: 178, f1: 172 } },
 };
 
 /* =====================================================================
@@ -395,9 +433,30 @@ const EX = {
    ===================================================================== */
 const WARMUP = ["3 min de bici, cinta o soga suave", "10 sentadillas sin peso", "8 zancadas atrás con rotación por lado", "10 balanceos de pierna adelante/atrás por lado", "30 s colgado de la barra", "10 círculos de brazos + 8 flexiones lentas"];
 const COOLDOWN = ["5 min de bici o caminar suave en la cinta", "Flexores de cadera (zancada estática): 30 s por lado", "Isquios (pierna estirada): 30 s por lado", "Pecho y hombros en la pared: 30 s por lado", "Dorsales colgado o apoyado en el banco: 30 s", "Respirá lento 5 veces. Listo."];
-const SESS = {
+const STAGE1 = {
+  A: { name: "Torso · Fuerza", short: "A", zone: "upper", goal: "Pesos pesados en pecho, espalda y hombros. Acá se construye la base.", items: [
+    { ex: "pushupx", sets: 3, reps: 3, rest: 45 }, { ex: "bench", sets: 3, reps: 6, rest: 150 }, { ex: "pullup", sets: 3, reps: 6, rest: 120 },
+    { ex: "ohp", sets: 3, reps: 8, rest: 90 }, { ex: "dbrow", sets: 3, reps: 10, rest: 60, each: true }, { ex: "lateral", sets: 3, reps: 15, rest: 45 } ] },
+  B: { name: "Piernas · Cuádriceps", short: "B", zone: "legs", goal: "Piernas grandes y fuertes: la base de cualquier salto.", items: [
+    { ex: "boxjump", sets: 3, reps: 3, rest: 60 }, { ex: "squat", sets: 3, reps: 6, rest: 150 }, { ex: "legpress", sets: 3, reps: 10, rest: 90 },
+    { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "calf", sets: 4, reps: 12, rest: 45 }, { ex: "plank", sets: 2, reps: 40, rest: 45 } ] },
+  C: { name: "Empuje · Volumen", short: "C", zone: "upper", goal: "Pecho, hombros y tríceps con más repeticiones para que crezcan.", items: [
+    { ex: "slam", sets: 3, reps: 5, rest: 45 }, { ex: "incline", sets: 4, reps: 10, rest: 90 }, { ex: "dips", sets: 3, reps: 8, rest: 90 },
+    { ex: "ohp", sets: 3, reps: 10, rest: 75 }, { ex: "lateral", sets: 3, reps: 15, rest: 45 }, { ex: "pushdown", sets: 3, reps: 12, rest: 45 } ] },
+  D: { name: "Tirón · Volumen", short: "D", zone: "court", goal: "Espalda ancha y brazos. La V que se ve de frente y de espaldas.", items: [
+    { ex: "swing", sets: 3, reps: 10, rest: 60 }, { ex: "latpull", sets: 4, reps: 10, rest: 90 }, { ex: "row", sets: 3, reps: 8, rest: 120 },
+    { ex: "facepull", sets: 3, reps: 15, rest: 45 }, { ex: "curl", sets: 3, reps: 12, rest: 45 }, { ex: "hangknee", sets: 3, reps: 10, rest: 60 } ] },
+  E: { name: "Piernas · Glúteo e isquios", short: "E", zone: "legs", goal: "La parte de atrás de las piernas: potencia para correr y saltar.", items: [
+    { ex: "broadjump", sets: 3, reps: 3, rest: 60 }, { ex: "rdl", sets: 3, reps: 8, rest: 120 }, { ex: "bulgarian", sets: 3, reps: 8, rest: 75, each: true },
+    { ex: "hipthrust", sets: 3, reps: 10, rest: 90 }, { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "calf", sets: 3, reps: 15, rest: 45 } ] },
+};
+const STAGES = {
+  1: { name: "Etapa 1 · Construir músculo", short: "Construir", desc: "Hipertrofia comiendo en déficit: ganás músculo mientras bajás grasa. Cada músculo se entrena 2 veces por semana, con 10 a 16 series semanales. Cada sesión arranca con 1 ejercicio explosivo corto para no perder potencia.", next: "Pasás a la etapa 2 cuando estés cerca del 15% de grasa: más o menos 74–75 kg con la cintura 8–10 cm más chica, o a los 5–6 meses." },
+  2: { name: "Etapa 2 · Atleta", short: "Atleta", desc: "Potencia, agilidad, aire y calistenia sobre la base de músculo que construiste.", next: "Si perdés fuerza o masa, podés volver a la etapa 1 cuando quieras." },
+};
+const STAGE2 = {
   A: { name: "Piernas · Explosión y equilibrio", short: "A", zone: "legs", goal: "Saltar más alto y tener piernas que funcionen una por una, como en la vida real.", items: [
-    { ex: "boxjump", sets: 4, reps: 3, rest: 90 }, { ex: "slsquat", sets: 3, reps: 6, rest: 75, each: true }, { ex: "slrdl", sets: 3, reps: 8, rest: 60, each: true },
+    { ex: "boxjump", sets: 4, reps: 3, rest: 90 }, { ex: "bulgarian", sets: 3, reps: 8, rest: 75, each: true }, { ex: "slrdl", sets: 3, reps: 8, rest: 60, each: true },
     { ex: "revlunge", sets: 3, reps: 8, rest: 60, each: true }, { ex: "hollow", sets: 3, reps: 20, rest: 45 }, { ex: "intervals", sets: 8, reps: 20, rest: 40, auto: true } ] },
   B: { name: "Empuje · Calistenia", short: "B", zone: "upper", goal: "Pecho, hombros y tríceps con tu propio peso. Camino a la parada de manos.", items: [
     { ex: "pushupx", sets: 4, reps: 5, rest: 75 }, { ex: "dips", sets: 4, reps: 6, rest: 120 }, { ex: "sapress", sets: 3, reps: 8, rest: 60, each: true },
@@ -412,6 +471,8 @@ const SESS = {
     { ex: "deadhang", sets: 3, reps: 30, rest: 60 }, { ex: "pike", sets: 3, reps: 6, rest: 75 }, { ex: "hollow", sets: 3, reps: 20, rest: 45 },
     { ex: "jumprope", sets: 5, reps: 60, rest: 30 }, { ex: "mountain", sets: 4, reps: 30, rest: 30 }, { ex: "bearcrawl", sets: 3, reps: 30, rest: 30 } ] },
 };
+let SESS = STAGE1;
+const applyStage = () => { SESS = S.settings.stage === 2 ? STAGE2 : STAGE1; };
 const DAYTYPE = {
   A: { label: "Gym A", zone: "legs" }, B: { label: "Gym B", zone: "upper" }, C: { label: "Gym C", zone: "court" }, D: { label: "Gym D", zone: "legs" }, E: { label: "Gym E", zone: "rest" },
   rest: { label: "Descanso", zone: "off" },
@@ -481,7 +542,7 @@ const NOGANAS = [
 /* =====================================================================
    STATE + STORAGE
    ===================================================================== */
-const DEFAULT_SETTINGS = { v: 3, commute: 25, gymDrive: 15, week: ["rest", "A", "B", "rest", "C", "D", "E"], restBoost: 0, why: "", startDate: null, shop: {}, skills: {} };
+const DEFAULT_SETTINGS = { v: 3, stage: 1, commute: 25, gymDrive: 15, week: ["rest", "A", "B", "rest", "C", "D", "E"], restBoost: 0, why: "", startDate: null, shop: {}, skills: {} };
 function migrateSettings(x) { x = { ...DEFAULT_SETTINGS, ...(x || {}) }; if (x.v !== 3) { x.week = [...DEFAULT_SETTINGS.week]; x.v = 3; delete x.basketTime; x._migrated = 1; } x.week = x.week.map(w => DAYTYPE[w] ? w : "rest"); return x; }
 let S = { settings: { ...DEFAULT_SETTINGS }, days: {}, weights: {}, sessions: [], active: null };
 let tab = "hoy";
@@ -503,6 +564,7 @@ const saveSettings = () => put("settings", S.settings);
 const saveDay = k => put("day-" + k, S.days[k] || {});
 const saveSession = s => { const { _dirty, ...clean } = s; put(s.id, { ...clean, kind: "session" }); };
 
+applyStage();
 if (!S.settings.startDate) { S.settings.startDate = dkey(new Date()); }
 
 async function initDb() {
@@ -531,7 +593,7 @@ async function initDb() {
     for (const d of snap.docs) {
       const v = d.data() || {}, k = d.id;
       if (!fresh(k)) { if (v.kind === "session") { const mine = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null); if (mine) (mine.finished ? sessions.push(mine) : active = mine); } continue; }
-      if (k === "settings") { S.settings = migrateSettings(v); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } }
+      if (k === "settings") { S.settings = migrateSettings(v); applyStage(); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } }
       else if (k.startsWith("day-")) S.days[k.slice(4)] = v;
       else if (k.startsWith("w-")) S.weights[k.slice(2)] = v;
       else if (v.kind === "session") { if (v.finished) sessions.push({ ...v, id: k }); else active = { ...v, id: k }; }
@@ -733,6 +795,7 @@ function viewGym() {
       ${s === t ? `<button class="btn primary big block" data-act="start" data-type="${s}">Empezar Gym ${s}</button>` : `<button class="btn block" data-act="start" data-type="${s}">Hacer este ahora</button>`}
     </div>`;
   const others = ["A", "B", "C", "D", "E"].filter(x => x !== next);
+  const stage = S.settings.stage === 2 ? 2 : 1;
   const sk = S.settings.skills || {}, nextSkill = SKILLS.findIndex(x => !sk[x]);
   return `
     ${S.active ? `<button class="btn primary big block" data-act="resume">Seguir entrenamiento en curso</button>` : ""}
@@ -740,6 +803,7 @@ function viewGym() {
       <div class="row between"><span class="label">Tu semana</span><span class="sub small">Tocá un día para cambiarlo</span></div>
       <div class="week">${strip}</div>
     </section>
+    <div class="card"><div class="row between"><h3>${esc(STAGES[stage].name)}</h3><span class="chip">${stage === 1 ? "ahora" : "etapa 2"}</span></div><p class="sub small">${esc(STAGES[stage].desc)}</p><p class="small"><b>${esc(STAGES[stage].next)}</b></p><button class="btn sm" data-act="stage" data-to="${stage === 1 ? 2 : 1}">${stage === 1 ? "Pasar a la etapa 2 · Atleta" : "Volver a la etapa 1 · Construir"}</button></div>
     <div class="card"><div class="row between"><b>${esc(ph.name)}</b><span class="chip num">Semana ${wk}</span></div><p class="sub">${esc(ph.tip)}</p></div>
     <section class="block"><span class="label">${isGym(t) ? "Hoy te toca" : "El próximo"}</span>${sessCard(next)}</section>
     <div class="card t-court"><div class="row between"><h3>Camino a la calistenia</h3><span class="chip num">${SKILLS.filter(x => sk[x]).length}/${SKILLS.length}</span></div>
@@ -859,7 +923,7 @@ function viewMe() {
       <p class="sub small">Con ${S.settings.commute} min de viaje te despertás a las <b class="num">${hm(gymTimes().wake)}</b> los días de gym y salís del gym a las <b class="num">${hm(gymTimes().leaveGym)}</b> y llegás a la oficina a las 9:20.</p>
       <span class="label">Qué hacés cada día</span>
       <div class="set-grid">${[1, 2, 3, 4, 5, 6, 0].map(wd => `<label for="wk-${wd}">${DOW_L[wd]}<select id="wk-${wd}" data-week="${wd}">${Object.keys(DAYTYPE).map(x => `<option value="${x}" ${S.settings.week[wd] === x ? "selected" : ""}>${DAYTYPE[x].label}${SESS[x] ? " · " + SESS[x].name : ""}</option>`).join("")}</select></label>`).join("")}</div>
-      <p class="sub small">Recomendado: 5 días (4 fuertes + el sábado corto). Si un día no podés, mové ese entrenamiento, no lo saltees.</p>
+      <p class="sub small">Recomendado: 5 días, cada músculo 2 veces por semana. Si un día no podés, mové ese entrenamiento, no lo saltees.</p>
       <button class="btn sm ghost" data-act="restart">Reiniciar el programa desde la semana 1</button>
     </div>`;
 }
@@ -1054,6 +1118,7 @@ document.addEventListener("click", ev => {
       S.weights[k] = { kg, ...(waist > 40 ? { waist } : {}) }; put("w-" + k, S.weights[k]); render(); toast("Peso guardado"); break;
     }
     case "restart": if (t.dataset.sure) { S.settings.startDate = k; saveSettings(); render(); toast("Arrancás de nuevo en la semana 1"); } else { t.dataset.sure = 1; t.textContent = "Tocá de nuevo para confirmar"; } break;
+    case "stage": if (t.dataset.sure) { S.settings.stage = +t.dataset.to; applyStage(); saveSettings(); render(); scrollTo(0, 0); toast(STAGES[S.settings.stage].name); } else { t.dataset.sure = 1; t.textContent = "Tocá de nuevo para confirmar"; } break;
     case "shop-clear": S.settings.shop = {}; saveSettings(); render(); break;
     case "ai-meal": aiMeal(); break;
     case "coach": aiCoach(); break;
@@ -1109,7 +1174,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet()
 /* =====================================================================
    CLAUDE (optional)
    ===================================================================== */
-const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket por diversión. Entrena 5 días a la mañana con una rutina funcional orientada a calistenia. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
+const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket por diversión. Entrena 5 días a la mañana: etapa 1 de hipertrofia en déficit (torso, piernas, empuje, tirón, piernas). Más adelante pasa a una etapa atlética y de calistenia. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
 async function aiMeal() {
   const out = $("#ai-meal-out"), have = $("#fridge").value.trim(), slot = $("#fridge-slot").value;
   if (!have) { toast("Escribí qué tenés en la heladera"); return; }
