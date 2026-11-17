@@ -5,7 +5,7 @@ Así la app queda como una app propia en el teléfono, con tu ícono, a pantalla
 Hay tres partes:
 
 1. **Supabase:** la base de datos y el login.
-2. **GitHub Pages:** dónde vive la app, gratis.
+2. **Netlify:** dónde vive la app, gratis y sin GitHub.
 3. **El teléfono:** instalar el ícono.
 
 ---
@@ -31,21 +31,25 @@ Pasame esos dos datos y yo los pongo en `docs/config.js`. También los podés pe
 
 ---
 
-## 2. GitHub Pages (5 minutos)
+## 2. Netlify, subiendo la carpeta (5 minutos, sin GitHub)
 
-La app ya está armada en la carpeta `docs/` del repo.
+Te paso un archivo `gym-netlify.zip`. Adentro está la carpeta `gym` con la app completa. Conviene hacerlo desde una computadora.
 
-1. En GitHub, abrí el repo **Gym → Settings → Pages**.
-2. En **Build and deployment → Source** elegí **Deploy from a branch**.
-3. En **Branch** elegí `claude/kind-bohr-mv2nic` y la carpeta **`/docs`**. Tocá **Save**.
-   - Si más adelante pasás todo a `main`, cambiá esto a `main` y `/docs`.
-4. En uno o dos minutos aparece la dirección. Va a ser algo como `https://giorgiobarchini.github.io/Gym/`.
+**La primera vez:**
 
-> **Si el repo es privado:** GitHub Pages en repos privados solo está en los planes pagos. Tenés dos opciones:
-> - **Hacer el repo público.** En el código no hay nada secreto.
-> - **Usar otro servicio gratis** como Netlify, Vercel o Cloudflare Pages, apuntando a la carpeta `docs/`.
+1. Descomprimí `gym-netlify.zip`. Te queda una carpeta `gym`.
+2. Entrá a <https://app.netlify.com/drop> con tu cuenta de Netlify; si no tenés, creá una gratis.
+3. Arrastrá la carpeta `gym` al recuadro. En unos segundos te da una dirección, algo como `https://nombre-raro-123.netlify.app`.
+4. Opcional: en **Site configuration → Change site name** le ponés un nombre mejor, por ejemplo `gym-giorgio` → `https://gym-giorgio.netlify.app`.
 
-Opcional: en Supabase, en **Authentication → URL Configuration**, poné esa dirección como **Site URL**.
+**Cada vez que actualicemos la app:**
+
+1. Te paso un zip nuevo. Descomprimilo.
+2. En Netlify entrá a tu sitio → **Deploys**.
+3. Arrastrá la carpeta `gym` nueva al recuadro que dice "Drag and drop your project folder here".
+4. La dirección no cambia y el ícono del teléfono sigue funcionando.
+
+Opcional: en Supabase, en **Authentication → URL Configuration**, poné la dirección de Netlify como **Site URL**.
 
 ---
 
@@ -53,7 +57,7 @@ Opcional: en Supabase, en **Authentication → URL Configuration**, poné esa di
 
 **iPhone (tiene que ser Safari):**
 
-1. Abrí la dirección de GitHub Pages.
+1. Abrí la dirección de Netlify.
 2. Tocá compartir (el cuadrado con la flecha).
 3. Elegí **Agregar a pantalla de inicio**.
 
@@ -71,6 +75,7 @@ Abrí la app desde el ícono, tocá **"No tengo cuenta: crear una"**, poné tu e
 
 - **`index.html` es la fuente única.** Es la misma app que se publica en Claude.
 - **`python3 tools/build_pages.py`** arma la versión instalable en `docs/`: le agrega el ícono, el manifest y Supabase.
+- **`python3 tools/make_netlify_zip.py`** empaqueta `docs/` en `gym-netlify.zip`, para subir a Netlify.
 - **`python3 tools/make_icons.py`** genera los íconos.
 - **Los datos** se guardan en la tabla `gym_docs`: una fila por cosa (ajustes, cada día, cada peso, cada entrenamiento), siempre ligada a tu usuario. También queda una copia en el teléfono, por si no hay señal en el gym; se sincroniza cuando vuelve la conexión o cuando volvés a abrir la app.
 - **En esta versión no están el coach ni el "¿Qué cocino?",** porque esos usan Claude y solo funcionan en la versión publicada en Claude.
