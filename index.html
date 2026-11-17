@@ -564,17 +564,20 @@ if (local) { S = { ...S, ...local, settings: migrateSettings(local.settings) }; 
 else { try { const old = JSON.parse(localStorage.getItem("gym-notebook-v1")); if (old?.sessions) S.sessions = old.sessions; } catch {} }
 
 let remote = null; // {put(id,data), del(id)}
-const pending = new Map(); // docId -> timestamp of local change (ignore stale snapshots briefly)
 function put(id, data) {
-  lsSave(); pending.set(id, Date.now());
+  data._t = Date.now(); lsSave();
   if (remote) remote.put(id, data);
 }
-function del(id) { lsSave(); pending.set(id, Date.now()); if (remote) remote.del(id); }
+function del(id) { lsSave(); if (remote) remote.del(id); }
+const validActive = v => !!(v && !v.finished && SESS[v.type] && Array.isArray(v.exercises) && v.exercises.length && v.exercises.every(e => EX[e.id] && Array.isArray(e.sets)) && typeof v.idx === "number" && Date.now() - (v.start || 0) < 18 * 3600e3);
+const anyDone = v => (v.exercises || []).some(e => (e.sets || []).some(x => x.done));
 const saveSettings = () => put("settings", S.settings);
 const saveDay = k => put("day-" + k, S.days[k] || {});
-const saveSession = s => { const { _dirty, ...clean } = s; put(s.id, { ...clean, kind: "session" }); };
+const saveSession = s => { s._t = Date.now(); const { _dirty, ...clean } = s; put(s.id, { ...clean, kind: "session" }); };
 
 applyStage();
+if (S.active && !validActive(S.active)) S.active = null;
+for (const k in S.days) { const d = S.days[k]; if (d) { d.done ||= {}; d.skip ||= {}; } }
 if (!S.settings.startDate) { S.settings.startDate = dkey(new Date()); }
 
 async function initDb() {
@@ -590,26 +593,39 @@ async function initDb() {
   remote = { put: (k, d) => run(k, () => col.doc(k).set(d)), del: k => run(k, () => col.doc(k).delete()) };
   let first = true;
   col.onSnapshot(snap => {
-    const fresh = k => !(pending.has(k) && Date.now() - pending.get(k) < 4000);
     if (first && snap.empty) {
       first = false;
       // first time in the cloud: upload what this phone has
-      saveSettings(); for (const k in S.days) saveDay(k); for (const k in S.weights) put("w-" + k, S.weights[k]); for (const s of S.sessions) saveSession(s); if (S.active) saveSession(S.active);
+      saveSettings(); for (const k in S.days) saveDay(k); for (const k in S.weights) put("w-" + k, S.weights[k]); for (const x of S.sessions) saveSession(x); if (S.active) saveSession(S.active);
       return;
     }
     first = false;
-    const sessions = [];
-    let active = null;
+    const newer = (loc, rem) => loc && (loc._t || 0) > (rem._t || 0);
+    const finished = [], open = [], seen = new Set();
     for (const d of snap.docs) {
-      const v = d.data() || {}, k = d.id;
-      if (!fresh(k)) { if (v.kind === "session") { const mine = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null); if (mine) (mine.finished ? sessions.push(mine) : active = mine); } continue; }
-      if (k === "settings") { S.settings = migrateSettings(v); applyStage(); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } }
-      else if (k.startsWith("day-")) S.days[k.slice(4)] = v;
-      else if (k.startsWith("w-")) S.weights[k.slice(2)] = v;
-      else if (v.kind === "session") { if (v.finished) sessions.push({ ...v, id: k }); else active = { ...v, id: k }; }
+      const v = d.data() || {}, k = d.id; seen.add(k);
+      if (k === "settings") { if (!newer(S.settings, v)) { S.settings = migrateSettings(v); applyStage(); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } } }
+      else if (k.startsWith("day-")) { const key = k.slice(4); if (!newer(S.days[key], v)) S.days[key] = v; }
+      else if (k.startsWith("w-")) { const key = k.slice(2); if (!newer(S.weights[key], v)) S.weights[key] = v; }
+      else if (v.kind === "session") {
+        const loc = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null);
+        const use = newer(loc, v) ? loc : { ...v, id: k };
+        (use.finished ? finished : open).push(use);
+      }
     }
-    S.sessions = sessions.sort((a, b) => b.start - a.start);
-    if (!(S.active && S.active._dirty)) S.active = active;
+    // keep local sessions written in the last seconds that the cloud does not show yet
+    for (const x of S.sessions) if (!seen.has(x.id) && Date.now() - (x._t || 0) < 15000) finished.push(x);
+    if (S.active && !seen.has(S.active.id) && Date.now() - (S.active._t || 0) < 15000) open.push(S.active);
+    // clean up unfinished sessions: keep only the newest valid one
+    open.sort((a, b) => (b.start || 0) - (a.start || 0));
+    let active = null;
+    for (const x of open) {
+      if (!active && validActive(x)) { active = x; continue; }
+      if (anyDone(x)) { x.finished = true; x.end = x.end || x.start; x.exercises = x.exercises.filter(e => (e.sets || []).some(z => z.done)); finished.push(x); saveSession(x); }
+      else del(x.id);
+    }
+    S.sessions = finished.sort((a, b) => b.start - a.start);
+    S.active = active;
     lsSave();
     if (!$("#focus").innerHTML) render();
   }, () => {});
@@ -683,7 +699,7 @@ function scheduleFor(date) {
   it(nightMin + 30, "sleep", "Celular afuera. A la cama.", earlyGym ? `Luces apagadas a las ${hm(nightMin + 45)}. Mañana suena a las ${hm(G.wake)}. Dormir es parte del entrenamiento: ahí bajás grasa y crecés.` : "Dormir bien es lo que hace que mañana tengas ganas.", { kind: "sleep" });
   return items.sort((a, b) => a.min - b.min);
 }
-const dayState = k => (S.days[k] ||= { done: {}, skip: {} });
+const dayState = k => { const d = (S.days[k] ||= { done: {}, skip: {} }); d.done ||= {}; d.skip ||= {}; return d; };
 function missionDone(k) {
   const d = S.days[k]; if (!d) return false;
   const items = scheduleFor(fromKey(k)).filter(i => i.mission);
@@ -994,7 +1010,9 @@ function lastFor(name) {
   return null;
 }
 function startWorkout(type, minimal) {
-  if (S.active) return resume();
+  if (S.active && validActive(S.active)) return resume();
+  if (S.active) { const old = S.active; S.active = null; if (anyDone(old)) { old.finished = true; old.end = old.start; S.sessions.unshift(old); saveSession(old); } else del(old.id); }
+  if (!SESS[type]) { toast("Hoy no hay entrenamiento en tu semana. Elegí uno en la pestaña Gym."); return; }
   const ph = phaseFor(weekNo()), s = SESS[type];
   let items = s.items;
   if (minimal) items = items.slice(0, 3);
@@ -1009,7 +1027,7 @@ function startWorkout(type, minimal) {
   saveSession(S.active); closeSheet(); unlockAudio(); keepAwake(true);
   F = { phase: "warm" }; renderFocus();
 }
-function resume() { closeSheet(); unlockAudio(); keepAwake(true); const a = S.active; F = { phase: a.idx < 0 ? "warm" : "work" }; renderFocus(); }
+function resume() { if (!validActive(S.active)) { S.active = null; render(); return; } closeSheet(); unlockAudio(); keepAwake(true); const a = S.active; F = { phase: a.idx < 0 ? "warm" : "work" }; renderFocus(); }
 function cur() { const a = S.active; return a.exercises[a.idx]; }
 function persist() { if (S.active) { S.active._dirty = true; saveSession(S.active); setTimeout(() => S.active && (S.active._dirty = false), 4500); } }
 function nextStep() {
@@ -1096,7 +1114,8 @@ function renderFocus() {
 /* =====================================================================
    EVENTS
    ===================================================================== */
-document.addEventListener("click", ev => {
+document.addEventListener("click", ev => { try { onClick(ev); } catch (e) { console.error(e); toast("Algo falló. Probá de nuevo."); } });
+function onClick(ev) {
   const t = ev.target.closest("[data-tab],[data-act],[data-close]");
   if (!t) return;
   if (t.dataset.close) { if (ev.target === t || t.tagName === "BUTTON") closeSheet(); return; }
@@ -1165,7 +1184,7 @@ document.addEventListener("click", ev => {
       else { t.dataset.sure = 1; t.textContent = "Tocá de nuevo para descartar"; }
       break;
   }
-});
+}
 document.addEventListener("input", ev => {
   const t = ev.target;
   if (t.dataset.ff && S.active) { const set = cur().sets[S.active.setIdx]; set[t.dataset.ff] = t.value.replace(",", "."); clearTimeout(t._t); t._t = setTimeout(persist, 600); }
