@@ -340,94 +340,91 @@ const typeClass = z => z === "legs" ? "t-legs" : z === "upper" ? "t-upper" : z =
    ===================================================================== */
 const yt = q => "https://www.youtube.com/results?search_query=" + encodeURIComponent(q + " técnica");
 const EX = {
-  boxjump: { n: "Salto al cajón", zone: "legs", w: false, q: "box jump", cues: ["Brazos atrás, bajá un cuarto de sentadilla y explotá hacia arriba.", "Caé suave y en silencio, rodillas apuntando a los pies.", "Bajate caminando, nunca saltando. Calidad, no cantidad."],
+  boxjump: { n: "Salto al cajón", zone: "legs", w: false, q: "box jump", cues: ["Brazos atrás, bajá un cuarto de sentadilla y explotá hacia arriba.", "Caé suave y en silencio, rodillas apuntando a los pies.", "Bajate caminando, nunca saltando. Calidad, no cantidad."], easier: "Cajón más bajo o salto vertical en el lugar.", harder: "Cajón más alto o salto a una pierna.",
     props: [{ k: "rect", x: 62, y: 74, w: 26, h: 17 }], A: { at: { j: "a1", x: 42, y: 90 }, t: 35, q1: 125, s1: 205, u1: 240, f1: 230 }, B: { at: { j: "a1", x: 74, y: 74 }, arc: 14, t: 25, q1: 120, s1: 205, u1: 70, f1: 60 } },
-  squat: { n: "Sentadilla con barra", zone: "legs", w: true, step: 2.5, q: "sentadilla con barra", cues: ["Barra sobre la espalda alta, pies al ancho de hombros.", "Sentate hacia atrás y abajo, pecho arriba, rodillas siguen a los pies.", "Bajá hasta que el muslo quede paralelo y subí empujando el piso."],
-    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 48, y: 90 }, t: 4, u1: 225, f1: 20 }, B: { at: { j: "a1", x: 48, y: 90 }, t: 40, q1: 95, s1: 200, u1: 262, f1: 58 } },
-  rdl: { n: "Peso muerto rumano", zone: "legs", w: true, step: 2.5, q: "peso muerto rumano", cues: ["Rodillas apenas flexionadas, la barra pegada a las piernas.", "Mandá la cola hacia atrás como cerrando una puerta con el culo.", "Bajá hasta sentir el estiramiento atrás del muslo, espalda recta."],
-    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 40, y: 90 }, t: 4 }, B: { at: { j: "a1", x: 40, y: 90 }, t: 58, q1: 140, s1: 178 } },
-  bulgarian: { n: "Zancada búlgara", zone: "legs", w: true, step: 1, q: "sentadilla búlgara", cues: ["Pie de atrás apoyado en el banco, el de adelante a un paso largo.", "Bajá recto, la rodilla de atrás casi toca el piso.", "Empujá con el talón de adelante. Hacé todas con una pierna y cambiá."],
-    props: [{ k: "rect", x: 10, y: 74, w: 26, h: 17 }, { k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 58, y: 90 }, t: 5, q1: 165, s1: 180, q2: 205, s2: 250, ft2: 260 }, B: { at: { j: "a1", x: 58, y: 90 }, t: 12, q1: 110, s1: 195, q2: 175, s2: 300, ft2: 280 } },
-  calf: { n: "Gemelos de pie", zone: "legs", w: true, step: 2, q: "elevación de gemelos de pie", cues: ["Subí bien arriba en puntas de pie.", "Aguantá un segundo arriba.", "Bajá lento hasta estirar del todo."],
-    props: [{ k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 50, y: 90 }, ft1: 90 }, B: { at: { j: "a1", x: 50, y: 85.5 }, ft1: 140 } },
-  plank: { n: "Plancha", zone: "legs", w: false, unit: "seg", q: "plancha abdominal", cues: ["Codos debajo de los hombros.", "Apretá cola y abdomen como si te fueran a pegar en la panza.", "Cuerpo en línea recta, no dejes caer la cadera."],
-    A: { at: { j: "e1", x: 74, y: 88 }, t: 96, u1: 180, f1: 90, q1: 250, s1: 250, ft1: 180 }, B: { at: { j: "e1", x: 74, y: 88 }, t: 93, u1: 180, f1: 90, q1: 252, s1: 252, ft1: 180 } },
-  chestpass: { n: "Pase de pecho con balón", zone: "upper", w: false, q: "medicine ball chest pass pared", cues: ["Balón medicinal de 3 a 5 kg contra la pared.", "Como un pase de basket: paso adelante y empujá explosivo.", "Agarralo en el rebote y repetí rápido."],
-    props: [{ k: "line", x1: 97, y1: 0, x2: 97, y2: 91, w: 3 }, { k: "ball", at: "w1", dx: 4, r: 6 }], A: { at: { j: "a1", x: 42, y: 90 }, t: 12, q1: 165, s1: 192, q2: 195, s2: 180, u1: 200, f1: 60 }, B: { at: { j: "a1", x: 42, y: 90 }, t: 22, q1: 155, s1: 195, q2: 200, s2: 180, u1: 84, f1: 86 } },
-  bench: { n: "Press de banca", zone: "upper", w: true, step: 2.5, q: "press de banca", cues: ["Ojos debajo de la barra, pies firmes en el piso.", "Bajá controlado hasta tocar el pecho a la altura de los pezones.", "Empujá fuerte hacia arriba sin despegar la cola del banco."],
-    props: [{ k: "rect", x: 14, y: 64, w: 54, h: 5 }, { k: "line", x1: 22, y1: 69, x2: 22, y2: 91 }, { k: "line", x1: 60, y1: 69, x2: 60, y2: 91 }, { k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "p", x: 60, y: 60.5 }, t: 270, u1: 0, f1: 0, q1: 115, s1: 180 }, B: { at: { j: "p", x: 60, y: 60.5 }, t: 270, u1: 125, f1: 355, q1: 115, s1: 180 } },
-  row: { n: "Remo con barra", zone: "upper", w: true, step: 2.5, q: "remo con barra", cues: ["Inclinate hacia adelante con la espalda recta, rodillas flojas.", "Tirá la barra hacia el ombligo llevando los codos atrás.", "Apretá la espalda arriba un segundo y bajá lento."],
-    props: [{ k: "plate", at: "w1", r: 7.5 }], A: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178 }, B: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, u1: 248, f1: 172 } },
-  ohp: { n: "Press militar con mancuernas", zone: "upper", w: true, step: 1, q: "press militar mancuernas", cues: ["Mancuernas a la altura de los hombros, abdomen firme.", "Empujá recto hacia arriba hasta estirar los brazos.", "No arquees la espalda: apretá la cola."],
-    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 50, y: 90 }, u1: 200, f1: 10 }, B: { at: { j: "a1", x: 50, y: 90 }, u1: 5, f1: 0 } },
-  pullup: { n: "Dominadas (o asistidas)", zone: "upper", w: false, noGround: true, q: "dominadas asistidas", cues: ["Agarre un poco más ancho que los hombros.", "Tirá los codos hacia los bolsillos hasta pasar el mentón.", "Si no salen, usá la máquina asistida o una banda elástica."],
-    props: [{ k: "line", x1: 28, y1: 2, x2: 82, y2: 2, w: 3 }], A: { at: { j: "w1", x: 55, y: 2 }, t: 2, u1: 0, f1: 0, q1: 175, s1: 215 }, B: { at: { j: "w1", x: 55, y: 2 }, t: 8, u1: 160, f1: 15, q1: 170, s1: 215 } },
-  lateral: { n: "Elevaciones laterales", zone: "upper", w: true, step: 1, view: "front", q: "elevaciones laterales mancuernas", cues: ["Mancuernas livianas, codos apenas flexionados.", "Subí los brazos hacia los costados hasta la altura de los hombros.", "Bajá lento en 2 segundos. Nada de balanceo."],
-    props: [{ k: "db", at: "w1" }, { k: "db", at: "w2" }],
-    A: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [60, 36], w1: [61, 49], e2: [40, 36], w2: [39, 49], p1: [55, 50], p2: [45, 50], k1: [56, 70], k2: [44, 70], a1: [56, 90], a2: [44, 90], t1: [61, 90], t2: [39, 90] },
-    B: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [71, 24], w1: [84, 25], e2: [29, 24], w2: [16, 25], p1: [55, 50], p2: [45, 50], k1: [56, 70], k2: [44, 70], a1: [56, 90], a2: [44, 90], t1: [61, 90], t2: [39, 90] } },
-  skater: { n: "Saltos laterales (patinador)", zone: "legs", w: false, view: "front", arc: 10, period: 1.8, q: "skater jumps", cues: ["Saltá de costado de un pie al otro, lo más lejos que puedas.", "Caé sobre una pierna, frená y estabilizá un segundo.", "Es el primer paso de la defensa en la cancha."],
-    A: { hd: [27, 29], s1: [35, 36], s2: [21, 38], e1: [43, 44], w1: [50, 51], e2: [15, 46], w2: [12, 56], p1: [35, 61], p2: [27, 62], k1: [40, 75], k2: [24, 76], a1: [31, 81], a2: [29, 90], t1: [27, 83], t2: [24, 90] }, B: "mirror" },
-  broadjump: { n: "Salto largo", zone: "legs", w: false, q: "broad jump salto largo", cues: ["Brazos atrás y bajá la cadera.", "Lanzate hacia adelante y arriba con todo.", "Caé con las dos piernas, suave, y quedate quieto 2 segundos."],
+  broadjump: { n: "Salto largo", zone: "legs", w: false, q: "broad jump salto largo", cues: ["Brazos atrás y bajá la cadera.", "Lanzate hacia adelante y arriba con todo.", "Caé con las dos piernas, suave, y quedate quieto 2 segundos."], easier: "Saltos más cortos, foco en caer bien.", harder: "3 saltos seguidos sin pausa.",
     A: { at: { j: "a1", x: 20, y: 90 }, t: 35, q1: 125, s1: 205, u1: 240, f1: 230 }, B: { at: { j: "a1", x: 70, y: 90 }, arc: 20, t: 30, q1: 118, s1: 205, u1: 75, f1: 65 } },
-  hipthrust: { n: "Hip thrust", zone: "legs", w: true, step: 2.5, q: "hip thrust con barra", cues: ["Espalda alta apoyada en el banco, barra sobre la cadera (con almohadilla).", "Subí la cadera hasta que el cuerpo quede como una mesa.", "Apretá la cola fuerte arriba 1 segundo."],
-    props: [{ k: "rect", x: 4, y: 64, w: 24, h: 27 }, { k: "plate", at: "w1", r: 7.5, dy: -4 }], A: { at: { j: "s", x: 28, y: 62 }, t: 300, u1: 120, f1: 120, q1: 70, s1: 180 }, B: { at: { j: "s", x: 28, y: 62 }, t: 275, u1: 97, f1: 95, q1: 100, s1: 180 } },
-  stepup: { n: "Subida al cajón", zone: "legs", w: true, step: 1, q: "step up cajón mancuernas", cues: ["Todo el pie arriba del cajón.", "Subí empujando solo con la pierna de arriba, sin impulsarte con la de abajo.", "Arriba, subí la otra rodilla como si fueras a hacer una bandeja."],
-    props: [{ k: "rect", x: 56, y: 74, w: 28, h: 17 }, { k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 67, y: 74 }, t: 15, q1: 100, s1: 185, q2: 185, s2: 165, u1: 185, f1: 180 }, B: { at: { j: "a1", x: 67, y: 74 }, t: 0, q1: 180, s1: 180, q2: 95, s2: 180, u1: 180, f1: 180 } },
-  legcurl: { n: "Curl femoral en máquina", zone: "legs", w: true, step: 2.5, q: "curl femoral acostado máquina", cues: ["Acostado boca abajo, el rodillo justo arriba de los talones.", "Llevá los talones hacia la cola.", "Bajá lento, en 3 segundos."],
-    props: [{ k: "rect", x: 14, y: 68, w: 70, h: 4 }, { k: "line", x1: 30, y1: 72, x2: 30, y2: 91 }, { k: "line", x1: 70, y1: 72, x2: 70, y2: 91 }, { k: "pad", at: "a1", dy: -3 }], A: { at: { j: "p", x: 48, y: 64.5 }, t: 90, h: 92, u1: 160, f1: 200, q1: 270, s1: 270, ft1: 180 }, B: { at: { j: "p", x: 48, y: 64.5 }, t: 90, h: 92, u1: 160, f1: 200, q1: 270, s1: 20, ft1: 110 } },
-  intervals: { n: "Intervalos (bici o cinta)", zone: "legs", w: false, unit: "seg", loop: true, period: .9, q: "HIIT intervalos bici", cues: ["20 segundos a fondo, 40 segundos suave. Así 10 veces.", "Es lo que más te va a ayudar a aguantar las corridas.", "Si es en cinta, usá inclinación en vez de velocidad extrema."],
+  skater: { n: "Saltos laterales (patinador)", zone: "legs", w: false, view: "front", arc: 10, period: 1.8, q: "skater jumps", cues: ["Saltá de costado de un pie al otro, lo más lejos que puedas.", "Caé sobre una pierna, frená y estabilizá un segundo.", "Es el primer paso lateral de cualquier deporte."], easier: "Paso lateral sin saltar.", harder: "Más distancia y sin pausa.",
+    A: { hd: [27, 29], s1: [35, 36], s2: [21, 38], e1: [43, 44], w1: [50, 51], e2: [15, 46], w2: [12, 56], p1: [35, 61], p2: [27, 62], k1: [40, 75], k2: [24, 76], a1: [31, 81], a2: [29, 90], t1: [27, 83], t2: [24, 90] }, B: "mirror" },
+  slsquat: { n: "Sentadilla a una pierna con alcance cruzado", zone: "legs", w: true, step: 2, q: "single leg squat contralateral reach dumbbell", cues: ["Parado en una pierna, la mancuerna en la mano contraria.", "Bajá en una pierna llevando la mancuerna hacia el piso, por fuera del pie de apoyo.", "Subí apretando la cola. Trabaja pierna, cadera, core y equilibrio a la vez."], easier: "Sin peso, o tocá un cajón en vez del piso.", harder: "Más peso → pistol squat sin apoyo.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 50, y: 90 }, t: 5, q2: 195, s2: 215, u2: 200, f2: 200 }, B: { at: { j: "a1", x: 50, y: 90 }, t: 50, q1: 105, s1: 200, q2: 222, s2: 245, u1: 165, f1: 170, u2: 235, f2: 235 } },
+  slrdl: { n: "Peso muerto a una pierna", zone: "legs", w: true, step: 2, q: "single leg romanian deadlift dumbbell", cues: ["Mancuerna en la mano contraria a la pierna de apoyo.", "Inclinate como un subibaja: el pecho baja y la pierna de atrás sube, todo recto.", "Volvé apretando la cola. Cadera mirando al piso, sin abrirla."], easier: "Apoyá la punta del pie de atrás en el piso.", harder: "Más peso o pausa de 2 s abajo.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 55, y: 90 }, t: 3, q2: 190, s2: 195 }, B: { at: { j: "a1", x: 55, y: 90 }, t: 85, q1: 172, s1: 180, q2: 268, s2: 270, ft2: 180 } },
+  revlunge: { n: "Zancada atrás con rotación", zone: "legs", w: true, step: 2, q: "reverse lunge with rotation dumbbell", cues: ["Mancuerna agarrada con las dos manos frente al pecho.", "Paso largo hacia atrás y bajá hasta casi tocar el piso con la rodilla.", "Abajo, girá el torso hacia la pierna de adelante. Volvé al centro y subí."], easier: "Sin peso y sin rotación.", harder: "Mancuerna más pesada, brazos estirados al girar.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 55, y: 90 }, t: 2, u1: 160, f1: 40 }, B: { at: { j: "a1", x: 55, y: 90 }, t: 5, q1: 100, s1: 185, q2: 190, s2: 280, ft2: 180, u1: 120, f1: 100 } },
+  hollow: { n: "Hollow hold", zone: "rest", w: false, unit: "seg", q: "hollow body hold", cues: ["Boca arriba, la zona lumbar PEGADA al piso.", "Brazos atrás de la cabeza y piernas estiradas, apenas despegadas.", "Es la base de toda la calistenia: dominadas, L-sit, parada de manos."], easier: "Rodillas flexionadas y brazos al costado.", harder: "Hollow rocks (balanceo) → L-sit.",
+    A: { at: { j: "p", x: 50, y: 86 }, t: 298, u1: 296, f1: 296, q1: 64, s1: 66, ft1: 50 }, B: { at: { j: "p", x: 50, y: 86 }, t: 293, u1: 291, f1: 291, q1: 69, s1: 71, ft1: 55 } },
+  intervals: { n: "Intervalos (bici o cinta)", zone: "rest", w: false, unit: "seg", loop: true, period: .9, q: "HIIT intervalos bici", cues: ["20 segundos a fondo, 40 segundos suave.", "Es lo que más te sube el aire y quema grasa en poco tiempo.", "Si es en cinta, usá inclinación en vez de velocidad extrema."], easier: "15 s fuerte / 45 s suave.", harder: "30 s fuerte / 30 s suave.",
     A: { at: { j: "p", x: 50, y: 51 }, t: 12, q1: 160, s1: 190, q2: 215, s2: 260, u1: 210, f1: 130, u2: 150, f2: 70 }, B: { at: { j: "p", x: 50, y: 49 }, t: 12, q1: 215, s1: 260, q2: 160, s2: 190, u1: 150, f1: 70, u2: 210, f2: 130 } },
-  slam: { n: "Slam con balón", zone: "upper", w: false, q: "medicine ball slam", cues: ["Balón arriba de la cabeza, en puntas de pie.", "Estrellalo contra el piso con toda la fuerza del abdomen.", "Agarralo y repetí. Sacá la bronca."],
-    props: [{ k: "ball", at: "w1", r: 6.5, dy: -3 }], A: { at: { j: "a1", x: 46, y: 90 }, t: -5, u1: 10, f1: 5 }, B: { at: { j: "a1", x: 46, y: 90 }, t: 50, q1: 110, s1: 200, u1: 150, f1: 175 } },
-  incline: { n: "Press inclinado con mancuernas", zone: "upper", w: true, step: 1, q: "press inclinado mancuernas", cues: ["Banco a 30–45 grados.", "Bajá las mancuernas a los costados del pecho, codos a 45°.", "Empujá hacia arriba juntándolas un poco."],
-    props: [{ k: "line", x1: 50, y1: 72, x2: 24, y2: 42, w: 5 }, { k: "rect", x: 40, y: 70, w: 26, h: 4 }, { k: "line", x1: 50, y1: 74, x2: 50, y2: 91 }, { k: "db", at: "w1" }], A: { at: { j: "p", x: 47, y: 67 }, t: 320, q1: 95, s1: 185, u1: 32, f1: 30 }, B: { at: { j: "p", x: 47, y: 67 }, t: 320, q1: 95, s1: 185, u1: 212, f1: 28 } },
-  latpull: { n: "Jalón al pecho", zone: "upper", w: true, step: 2.5, q: "jalón al pecho polea", cues: ["Agarre ancho, muslos trabados debajo del rodillo.", "Tirá la barra al pecho llevando los codos abajo y atrás.", "Subí lento hasta estirar los brazos."],
-    props: [{ k: "rect", x: 32, y: 67, w: 26, h: 4 }, { k: "line", x1: 45, y1: 71, x2: 45, y2: 91 }, { k: "rect", x: 56, y: 58, w: 10, h: 4 }, { k: "cable", from: "w1", x: 54, y: -8 }, { k: "bar", at: "w1" }], A: { at: { j: "p", x: 45, y: 65 }, t: 350, q1: 90, s1: 178, u1: 14, f1: 10 }, B: { at: { j: "p", x: 45, y: 65 }, t: 345, q1: 90, s1: 178, u1: 165, f1: 18 } },
-  dbrow: { n: "Remo con mancuerna", zone: "upper", w: true, step: 1, q: "remo con mancuerna a una mano", cues: ["Una mano apoyada en la rodilla o en un banco.", "Tirá la mancuerna hacia el bolsillo, el codo pegado al cuerpo.", "Hacé todas de un lado y cambiá."],
-    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, q2: 165, s2: 185, u2: 150, f2: 178 }, B: { at: { j: "a1", x: 36, y: 90 }, t: 68, q1: 150, s1: 178, q2: 165, s2: 185, u1: 250, f1: 172, u2: 150, f2: 178 } },
-  dips: { n: "Fondos en paralelas", zone: "upper", w: false, q: "fondos en paralelas", cues: ["Brazos estirados, cuerpo apenas inclinado adelante.", "Bajá hasta que los codos queden a 90°.", "Si cuesta, usá la máquina asistida o hacé flexiones."],
+  pushupx: { n: "Flexiones explosivas", zone: "upper", w: false, q: "explosive push ups", cues: ["Cuerpo duro como una tabla, manos debajo de los hombros.", "Bajá controlado y empujá tan fuerte que las manos se despeguen del piso.", "Caé suave con los codos apenas flexionados."], easier: "Flexiones normales rápidas, o con manos en un banco.", harder: "Con palmada.",
+    A: { at: { j: "w1", x: 80, y: 90 }, t: 77, u1: 250, f1: 140, q1: 257, s1: 257, ft1: 200 }, B: { at: { j: "w1", x: 80, y: 90 }, arc: 5, t: 68, u1: 180, f1: 180, q1: 248, s1: 248, ft1: 200 } },
+  dips: { n: "Fondos en paralelas", zone: "upper", w: false, q: "fondos en paralelas", cues: ["Brazos estirados, cuerpo apenas inclinado adelante.", "Bajá hasta que los codos queden a 90°.", "Subí empujando las barras hacia el piso."], easier: "Máquina asistida, banda elástica o solo la bajada lenta (5 s).", harder: "Con lastre → fondos en anillas.",
     props: [{ k: "line", x1: 34, y1: 47, x2: 70, y2: 47, w: 3 }, { k: "line", x1: 66, y1: 47, x2: 66, y2: 91 }], A: { at: { j: "w1", x: 52, y: 47 }, t: 5, q1: 172, s1: 215 }, B: { at: { j: "w1", x: 52, y: 47 }, t: 22, u1: 235, f1: 165, q1: 178, s1: 220 } },
-  facepull: { n: "Face pull", zone: "upper", w: true, step: 2.5, q: "face pull polea", cues: ["Polea a la altura de la cara, soga con las dos manos.", "Tirá hacia la frente abriendo los codos alto.", "Cuida los hombros: clave para tirar y rebotear."],
-    props: [{ k: "cable", from: "w1", x: 99, y: 18 }, { k: "rect", x: 96, y: 0, w: 4, h: 91 }], A: { at: { j: "a1", x: 38, y: 90 }, t: 355, q1: 172, s1: 185, q2: 195, s2: 180, u1: 82, f1: 84 }, B: { at: { j: "a1", x: 38, y: 90 }, t: 355, q1: 172, s1: 185, q2: 195, s2: 180, u1: 280, f1: 62 } },
-  curl: { n: "Curl de bíceps", zone: "upper", w: true, step: 1, q: "curl de bíceps mancuernas", cues: ["Codos pegados al cuerpo, quietos.", "Subí sin balancear la espalda.", "Bajá lento hasta estirar del todo."],
-    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 48, y: 90 }, u1: 182, f1: 180 }, B: { at: { j: "a1", x: 48, y: 90 }, u1: 176, f1: 25 } },
-  swing: { n: "Swing con kettlebell", zone: "legs", w: true, step: 4, q: "kettlebell swing", cues: ["Es una bisagra de cadera, no una sentadilla.", "Mandá la pesa entre las piernas y tirá la cadera adelante con fuerza.", "Los brazos solo guían: la pesa sube por la cadera."],
+  sapress: { n: "Press a un brazo de pie", zone: "upper", w: true, step: 1, q: "single arm dumbbell overhead press standing", cues: ["Una mancuerna sola, la otra mano libre.", "Empujá recto arriba SIN inclinarte para el costado: el abdomen trabaja para que no te dobles.", "Hacé todas de un lado y cambiá."], easier: "Sentado o con menos peso.", harder: "Arrodillado en una rodilla, o con kettlebell boca abajo.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 50, y: 90 }, u1: 200, f1: 10 }, B: { at: { j: "a1", x: 50, y: 90 }, u1: 5, f1: 0 } },
+  pike: { n: "Flexiones en pica", zone: "upper", w: false, q: "pike push up", cues: ["Cadera bien arriba, el cuerpo como una V invertida.", "Bajá la cabeza hacia el piso, entre las manos.", "Es el camino a la parada de manos y a empujar tu peso hacia arriba."], easier: "Pies más lejos de las manos y menos rango.", harder: "Pies en un cajón → flexiones en parada de manos contra la pared.",
+    A: { at: { j: "a1", x: 28, y: 86 }, t: 130, q1: 200, s1: 192, ft1: 120, u1: 200, f1: 150 }, B: { at: { j: "a1", x: 28, y: 86 }, t: 140, q1: 198, s1: 190, ft1: 120, u1: 160, f1: 160 } },
+  renegade: { n: "Remo renegado", zone: "upper", w: true, step: 1, q: "renegade row", cues: ["Plancha alta agarrando dos mancuernas, pies abiertos.", "Remá una mancuerna hacia las costillas sin girar la cadera.", "Alternás lados. Es core, espalda y hombros a la vez."], easier: "Rodillas apoyadas.", harder: "Pies juntos o flexión entre cada remo.",
+    props: [{ k: "db", at: "w1" }, { k: "db", at: "w2", dy: 0 }], A: { at: { j: "w2", x: 80, y: 88 }, t: 68, u1: 180, f1: 180, u2: 180, f2: 180, q1: 248, s1: 248, ft1: 200 }, B: { at: { j: "w2", x: 80, y: 88 }, t: 68, u1: 280, f1: 175, u2: 180, f2: 180, q1: 248, s1: 248, ft1: 200 } },
+  mountain: { n: "Escaladores", zone: "rest", w: false, unit: "seg", loop: true, period: .7, q: "mountain climbers", cues: ["Plancha alta, hombros arriba de las manos.", "Llevá las rodillas al pecho alternando, rápido.", "La cadera baja, no la subas."], easier: "Más lento, paso a paso.", harder: "Más rápido o cruzando la rodilla al codo contrario.",
+    A: { at: { j: "w1", x: 80, y: 90 }, t: 68, u1: 180, f1: 180, q1: 140, s1: 230, q2: 248, s2: 248, ft1: 180, ft2: 200 }, B: { at: { j: "w1", x: 80, y: 90 }, t: 68, u1: 180, f1: 180, q1: 248, s1: 248, q2: 140, s2: 230, ft1: 200, ft2: 180 } },
+  swing: { n: "Swing con kettlebell", zone: "court", w: true, step: 4, q: "kettlebell swing", cues: ["Es una bisagra de cadera, no una sentadilla.", "Mandá la pesa entre las piernas y tirá la cadera adelante con fuerza.", "Los brazos solo guían: la pesa sube por la cadera."], easier: "Pesa más liviana, swings cortos.", harder: "Swing a una mano.",
     props: [{ k: "kb", at: "w1" }], A: { at: { j: "a1", x: 42, y: 90 }, t: 62, q1: 145, s1: 180, u1: 205, f1: 212 }, B: { at: { j: "a1", x: 42, y: 90 }, t: -3, q1: 180, s1: 180, u1: 88, f1: 88 } },
+  pullup: { n: "Dominadas", zone: "court", w: false, noGround: true, q: "dominadas progresión", cues: ["Agarre un poco más ancho que los hombros.", "Primero bajá los hombros (alejalos de las orejas), después tirá los codos hacia los bolsillos.", "Pasá el mentón y bajá controlado hasta estirar del todo."], easier: "Negativas: subí con un salto y bajá en 5 segundos. O máquina asistida / banda.", harder: "Con lastre o al pecho explosivas → muscle-up.",
+    props: [{ k: "line", x1: 28, y1: 2, x2: 82, y2: 2, w: 3 }], A: { at: { j: "w1", x: 55, y: 2 }, t: 2, u1: 0, f1: 0, q1: 175, s1: 215 }, B: { at: { j: "w1", x: 55, y: 2 }, t: 8, u1: 160, f1: 15, q1: 170, s1: 215 } },
+  invrow: { n: "Remo australiano", zone: "court", w: false, q: "remo australiano inverted row", cues: ["Colgado debajo de una barra baja (en el Smith o rack), cuerpo recto, talones al piso.", "Llevá el pecho a la barra apretando las escápulas.", "Bajá lento. Cuanto más horizontal, más difícil."], easier: "Barra más alta (cuerpo más parado).", harder: "Pies elevados en un banco.",
+    props: [{ k: "bar", at: "w1" }], A: { at: { j: "a1", x: 12, y: 90 }, t: 77, q1: 257, s1: 257, ft1: 0, u1: 0, f1: 0 }, B: { at: { j: "a1", x: 12, y: 90 }, t: 60, q1: 240, s1: 240, ft1: 0, u1: 250, f1: 30 } },
+  hangknee: { n: "Rodillas al pecho colgado", zone: "court", w: false, noGround: true, q: "hanging knee raises", cues: ["Colgado de la barra, hombros activos (no flojos).", "Subí las rodillas al pecho redondeando un poco la espalda.", "Bajá lento sin balancearte."], easier: "Rodillas solo hasta 90°.", harder: "Piernas estiradas → L-sit colgado.",
+    props: [{ k: "line", x1: 28, y1: 2, x2: 82, y2: 2, w: 3 }], A: { at: { j: "w1", x: 55, y: 2 }, t: 0, u1: 0, f1: 0, q1: 178, s1: 182 }, B: { at: { j: "w1", x: 55, y: 2 }, t: -6, u1: 0, f1: 0, q1: 75, s1: 175 } },
+  farmer: { n: "Caminata del granjero", zone: "court", w: true, step: 2, unit: "seg", loop: true, period: 1.3, q: "farmer carry", cues: ["Una mancuerna pesada en cada mano.", "Caminá derecho, pasos cortos, hombros atrás y abajo.", "Fortalece el agarre: lo vas a necesitar para la barra."], easier: "Menos peso.", harder: "Más peso, o una sola mano (te obliga a no inclinarte).",
+    props: [{ k: "db", at: "w1", dy: 2 }, { k: "db", at: "w2", dy: 2 }], A: { at: { j: "p", x: 50, y: 51 }, t: 0, q1: 165, s1: 180, q2: 195, s2: 190 }, B: { at: { j: "p", x: 50, y: 50.5 }, t: 0, q1: 195, s1: 190, q2: 165, s2: 180 } },
+  deadhang: { n: "Colgarse de la barra", zone: "court", w: false, unit: "seg", noGround: true, q: "dead hang active hang", cues: ["Colgate con los brazos estirados.", "Cada tanto, bajá los hombros sin doblar los codos (colgado activo).", "Agarre, hombros sanos y la base de las dominadas."], easier: "Pies apoyados apenas en un cajón.", harder: "Alternando a una mano.",
+    props: [{ k: "line", x1: 28, y1: 2, x2: 82, y2: 2, w: 3 }], A: { at: { j: "w1", x: 55, y: 2 }, t: 0, u1: 0, f1: 0, q1: 178, s1: 186 }, B: { at: { j: "w1", x: 55, y: 2 }, t: 3, u1: 5, f1: 0, q1: 176, s1: 190 } },
+  thruster: { n: "Thruster con mancuernas", zone: "legs", w: true, step: 1, q: "dumbbell thruster", cues: ["Mancuernas en los hombros, sentadilla completa.", "Subí explosivo y usá ese impulso para empujar las mancuernas arriba.", "Un solo movimiento fluido: todo el cuerpo trabaja."], easier: "Menos peso o sentadilla más corta.", harder: "Con barra o más peso.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 48, y: 90 }, t: 30, q1: 95, s1: 200, u1: 220, f1: 40 }, B: { at: { j: "a1", x: 48, y: 90 }, t: 0, u1: 5, f1: 0 } },
+  stepup: { n: "Subida al cajón con rodilla arriba", zone: "legs", w: true, step: 1, q: "step up knee drive", cues: ["Todo el pie arriba del cajón.", "Subí empujando solo con la pierna de arriba.", "Arriba, subí la otra rodilla fuerte, como en un salto."], easier: "Cajón más bajo, sin peso.", harder: "Más peso o saltá desde arriba.",
+    props: [{ k: "rect", x: 56, y: 74, w: 28, h: 17 }, { k: "db", at: "w1", dy: 2 }], A: { at: { j: "a1", x: 67, y: 74 }, t: 15, q1: 100, s1: 185, q2: 185, s2: 165, u1: 185, f1: 180 }, B: { at: { j: "a1", x: 67, y: 74 }, t: 0, q1: 180, s1: 180, q2: 95, s2: 180, u1: 180, f1: 180 } },
+  bearcrawl: { n: "Gateo del oso", zone: "rest", w: false, unit: "seg", loop: true, period: 1.2, q: "bear crawl", cues: ["En cuatro patas con las rodillas a 3 cm del piso.", "Avanzá moviendo mano y pie contrarios a la vez.", "Espalda plana: que no se te caiga un vaso puesto encima."], easier: "Quedate quieto con las rodillas despegadas (bear hold).", harder: "Hacia atrás y de costado.",
+    A: { at: { j: "p", x: 42, y: 64 }, t: 90, u1: 170, f1: 172, u2: 190, f2: 188, q1: 165, s1: 255, q2: 195, s2: 255, ft1: 160, ft2: 160 }, B: { at: { j: "p", x: 42, y: 63 }, t: 90, u1: 190, f1: 188, u2: 170, f2: 172, q1: 195, s1: 255, q2: 165, s2: 255, ft1: 160, ft2: 160 } },
+  jumprope: { n: "Soga", zone: "rest", w: false, unit: "seg", loop: true, period: .5, q: "saltar la soga principiante", cues: ["Saltitos cortos en puntas de pie.", "Las muñecas giran la soga, no los brazos.", "Si no hay soga, hacé el gesto igual."], easier: "Saltá cada dos vueltas.", harder: "Alternando pies o dobles.",
+    props: [{ k: "cable", from: "w1", x: 40, y: 94 }], A: { at: { j: "a1", x: 50, y: 90 }, ft1: 125, u1: 200, f1: 120 }, B: { at: { j: "a1", x: 50, y: 85 }, ft1: 135, u1: 200, f1: 125 } },
 };
 
 /* =====================================================================
    PROGRAM
    ===================================================================== */
-const WARMUP = ["2 min de bici o trote suave", "10 sentadillas sin peso", "10 zancadas caminando con giro de torso", "10 balanceos de pierna adelante/atrás por lado", "20 saltos suaves en el lugar o a la soga", "10 círculos de brazos y 10 flexiones"];
+const WARMUP = ["3 min de bici, cinta o soga suave", "10 sentadillas sin peso", "8 zancadas atrás con rotación por lado", "10 balanceos de pierna adelante/atrás por lado", "30 s colgado de la barra", "10 círculos de brazos + 8 flexiones lentas"];
+const COOLDOWN = ["5 min de bici o caminar suave en la cinta", "Flexores de cadera (zancada estática): 30 s por lado", "Isquios (pierna estirada): 30 s por lado", "Pecho y hombros en la pared: 30 s por lado", "Dorsales colgado o apoyado en el banco: 30 s", "Respirá lento 5 veces. Listo."];
 const SESS = {
-  A: { name: "Piernas · Explosión", short: "A", zone: "legs", goal: "Potencia para saltar y arrancar más rápido.", items: [
-    { ex: "boxjump", sets: 4, reps: 3, rest: 90 }, { ex: "squat", sets: 4, reps: 6, rest: 150 }, { ex: "rdl", sets: 3, reps: 8, rest: 120 },
-    { ex: "bulgarian", sets: 3, reps: 8, rest: 75, each: true }, { ex: "calf", sets: 3, reps: 12, rest: 45 }, { ex: "plank", sets: 3, reps: 40, rest: 45 } ] },
-  B: { name: "Torso · Fuerza", short: "B", zone: "upper", goal: "Fuerza para el contacto, el pase y el rebote.", items: [
-    { ex: "chestpass", sets: 4, reps: 6, rest: 60 }, { ex: "bench", sets: 4, reps: 6, rest: 150 }, { ex: "row", sets: 4, reps: 8, rest: 120 },
-    { ex: "ohp", sets: 3, reps: 10, rest: 90 }, { ex: "pullup", sets: 3, reps: 6, rest: 120 }, { ex: "lateral", sets: 3, reps: 15, rest: 45 } ] },
-  C: { name: "Piernas · Agilidad + Motor", short: "C", zone: "legs", goal: "Cambios de dirección y aguantar las corridas.", items: [
-    { ex: "skater", sets: 3, reps: 6, rest: 60, each: true }, { ex: "broadjump", sets: 4, reps: 3, rest: 90 }, { ex: "hipthrust", sets: 4, reps: 8, rest: 120 },
-    { ex: "stepup", sets: 3, reps: 8, rest: 75, each: true }, { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "intervals", sets: 10, reps: 20, rest: 40, auto: true } ] },
-  D: { name: "Torso · Volumen + Motor", short: "D", zone: "upper", goal: "Masa muscular para la estética y para bancar el contacto.", items: [
-    { ex: "slam", sets: 4, reps: 6, rest: 60 }, { ex: "incline", sets: 4, reps: 10, rest: 90 }, { ex: "latpull", sets: 4, reps: 10, rest: 90 },
-    { ex: "dbrow", sets: 3, reps: 10, rest: 60, each: true }, { ex: "dips", sets: 3, reps: 8, rest: 90 }, { ex: "facepull", sets: 3, reps: 15, rest: 45 },
-    { ex: "curl", sets: 3, reps: 12, rest: 45 }, { ex: "swing", sets: 4, reps: 15, rest: 60 } ] },
+  A: { name: "Piernas · Explosión y equilibrio", short: "A", zone: "legs", goal: "Saltar más alto y tener piernas que funcionen una por una, como en la vida real.", items: [
+    { ex: "boxjump", sets: 4, reps: 3, rest: 90 }, { ex: "slsquat", sets: 3, reps: 6, rest: 75, each: true }, { ex: "slrdl", sets: 3, reps: 8, rest: 60, each: true },
+    { ex: "revlunge", sets: 3, reps: 8, rest: 60, each: true }, { ex: "hollow", sets: 3, reps: 20, rest: 45 }, { ex: "intervals", sets: 8, reps: 20, rest: 40, auto: true } ] },
+  B: { name: "Empuje · Calistenia", short: "B", zone: "upper", goal: "Pecho, hombros y tríceps con tu propio peso. Camino a la parada de manos.", items: [
+    { ex: "pushupx", sets: 4, reps: 5, rest: 75 }, { ex: "dips", sets: 4, reps: 6, rest: 120 }, { ex: "sapress", sets: 3, reps: 8, rest: 60, each: true },
+    { ex: "pike", sets: 3, reps: 6, rest: 90 }, { ex: "renegade", sets: 3, reps: 6, rest: 60, each: true }, { ex: "mountain", sets: 4, reps: 30, rest: 30 } ] },
+  C: { name: "Tirón · Agarre", short: "C", zone: "court", goal: "Espalda y agarre para subirte a la barra. Camino a la dominada y al muscle-up.", items: [
+    { ex: "swing", sets: 4, reps: 12, rest: 75 }, { ex: "pullup", sets: 5, reps: 4, rest: 120 }, { ex: "invrow", sets: 3, reps: 10, rest: 75 },
+    { ex: "hangknee", sets: 3, reps: 10, rest: 60 }, { ex: "farmer", sets: 4, reps: 40, rest: 60 }, { ex: "deadhang", sets: 2, reps: 30, rest: 60 } ] },
+  D: { name: "Atleta completo", short: "D", zone: "legs", goal: "Todo el cuerpo junto: potencia, cambios de dirección y aire.", items: [
+    { ex: "skater", sets: 3, reps: 6, rest: 60, each: true }, { ex: "broadjump", sets: 3, reps: 3, rest: 90 }, { ex: "thruster", sets: 4, reps: 8, rest: 90 },
+    { ex: "stepup", sets: 3, reps: 8, rest: 60, each: true }, { ex: "bearcrawl", sets: 3, reps: 30, rest: 45 }, { ex: "intervals", sets: 10, reps: 20, rest: 40, auto: true } ] },
+  E: { name: "Motor + Skills", short: "E", zone: "rest", goal: "Sábado más corto: técnica de calistenia y cardio que quema grasa.", items: [
+    { ex: "deadhang", sets: 3, reps: 30, rest: 60 }, { ex: "pike", sets: 3, reps: 6, rest: 75 }, { ex: "hollow", sets: 3, reps: 20, rest: 45 },
+    { ex: "jumprope", sets: 5, reps: 60, rest: 30 }, { ex: "mountain", sets: 4, reps: 30, rest: 30 }, { ex: "bearcrawl", sets: 3, reps: 30, rest: 30 } ] },
 };
 const DAYTYPE = {
-  A: { label: "Gym A", zone: "legs" }, B: { label: "Gym B", zone: "upper" }, C: { label: "Gym C", zone: "legs" }, D: { label: "Gym D", zone: "upper" },
-  basket: { label: "Basket", zone: "court" }, rest: { label: "Descanso", zone: "rest" },
+  A: { label: "Gym A", zone: "legs" }, B: { label: "Gym B", zone: "upper" }, C: { label: "Gym C", zone: "court" }, D: { label: "Gym D", zone: "legs" }, E: { label: "Gym E", zone: "rest" },
+  rest: { label: "Descanso", zone: "off" },
 };
-const short = t => t === "basket" ? "🏀" : t === "rest" ? "–" : t;
+const short = t => t === "rest" ? "–" : t;
+const SKILLS = ["Colgarte 60 s seguidos", "5 dominadas limpias", "10 fondos limpios", "Pistol squat con cada pierna", "L-sit 10 s", "Parada de manos contra la pared 30 s", "10 dominadas seguidas", "Primer muscle-up"];
 function phaseFor(week) {
-  if (week <= 2) return { name: "Fase 1 · Volver", tip: "Semanas 1 y 2: una serie menos y dejá 3 repeticiones en el tanque. Saltos bajos. El objetivo es que tu cuerpo se acuerde, no destruirte.", setDelta: -1 };
+  if (week <= 2) return { name: "Fase 1 · Volver", tip: "Semanas 1 y 2: una serie menos y dejá 3 repeticiones en el tanque. Saltos bajos. Usá las versiones fáciles sin culpa. El objetivo es que tu cuerpo se acuerde.", setDelta: -1 };
   if (week % 6 === 0) return { name: "Semana de descarga", tip: "Esta semana hacé una serie menos en todo. Tu cuerpo crece cuando descansa.", setDelta: -1 };
-  if (week <= 8) return { name: "Fase 2 · Construir", tip: "Cuando completes todas las series con las reps del objetivo, subí el peso la próxima vez (2,5 kg en barra, 1–2 kg en mancuernas).", setDelta: 0 };
-  return { name: "Fase 3 · Potencia", tip: "Saltos y lanzamientos a máxima intención. Seguí subiendo pesos de a poco. Ya estás en otro nivel.", setDelta: 0 };
+  if (week <= 8) return { name: "Fase 2 · Construir", tip: "Cuando completes todas las series con las reps del objetivo, subí: más peso, o la versión más difícil del ejercicio.", setDelta: 0 };
+  return { name: "Fase 3 · Potencia y skills", tip: "Saltos a máxima intención y versiones difíciles de calistenia. Ya estás en otro nivel.", setDelta: 0 };
 }
-const sessMinutes = s => Math.round(8 + s.items.reduce((a, it) => a + it.sets * ((it.ex === "intervals" ? 20 : 40) * (it.each ? 2 : 1) + it.rest) / 60, 0));
-
+const sessMinutes = s => Math.round(20 + s.items.reduce((a, it) => a + it.sets * ((EX[it.ex].unit === "seg" ? it.reps : 35) * (it.each ? 2 : 1) + it.rest) / 60, 0));
 /* =====================================================================
    FOOD
    ===================================================================== */
@@ -456,18 +453,11 @@ const MEALS = {
     { n: "Shaker de proteína", i: ["1 scoop de whey con agua", "1 banana o manzana"], min: 1, kcal: 230, p: 26 },
     { n: "Huevos duros + fruta", i: ["2 huevos duros (hechos el domingo)", "1 fruta", "1 puñado chico de frutos secos"], min: 1, kcal: 300, p: 16 },
     { n: "Sándwich de pavita", i: ["2 rebanadas de pan integral", "4 fetas de pavita o jamón", "1 feta de queso light", "Tomate"], min: 3, kcal: 320, p: 26 } ] },
-  prebasket: { name: "Antes del basket", hint: "1 hora antes. Carbohidrato rápido para tener piernas.", opts: [
-    { n: "Banana + barrita", i: ["1 banana", "1 barrita de cereal"], min: 1, kcal: 200, p: 3 },
-    { n: "Tostadas con miel", i: ["2 tostadas", "Miel o mermelada"], min: 3, kcal: 220, p: 5 } ] },
   dinner: { name: "Cena", hint: "Proteína + verduras + un puño de carbohidrato. Sin culpa.", opts: [
     { n: "Pollo + verduras salteadas + arroz", i: ["200 g de pollo (del meal prep)", "Verduras salteadas: zucchini, morrón, cebolla", "1 puño de arroz", "Sal, ajo, limón, pimentón"], min: 15, kcal: 600, p: 48 },
     { n: "Omelette de verduras", i: ["3 huevos + 2 claras", "Espinaca, tomate, cebolla, queso light", "Ensalada", "1 tostada"], min: 10, kcal: 480, p: 38 },
     { n: "Bowl de carne picada", i: ["180 g de carne picada magra", "1/2 lata de porotos o choclo", "Tomate, cebolla, lechuga", "1 tortilla o 1 puño de arroz"], min: 15, kcal: 640, p: 45 },
     { n: "Pescado + puré de calabaza", i: ["200 g de merluza o salmón al horno", "Puré de calabaza", "Ensalada verde"], min: 20, kcal: 520, p: 42 } ] },
-  dinnerPost: { name: "Cena post-basket", hint: "Gastaste mucho: sumá un puño extra de carbohidrato.", opts: [
-    { n: "Pasta con pollo", i: ["2 puños de pasta cocida", "200 g de pollo", "Salsa de tomate natural", "Ensalada"], min: 15, kcal: 750, p: 50 },
-    { n: "Wrap de carne y arroz", i: ["2 tortillas", "180 g de carne picada magra o pollo", "1 puño de arroz", "Lechuga, tomate, palta (poquita)"], min: 15, kcal: 760, p: 46 },
-    { n: "Milanesas al horno + puré", i: ["2 milanesas de pollo o carne al horno", "Puré de papa (1 puño y medio)", "Ensalada"], min: 20, kcal: 720, p: 48 } ] },
 };
 const SHOP = [
   ["Proteínas", ["Pechuga de pollo (1,5 kg)", "Huevos (30)", "Carne picada magra (500 g)", "Merluza o salmón", "Atún al natural (4 latas)", "Yogur griego / alto en proteína (6)", "Pavita o jamón cocido", "Whey protein (si no tenés)"]],
@@ -480,7 +470,7 @@ const PREP = ["Horno: 1,5 kg de pollo en tiras con sal, ajo y pimentón (25 min 
 /* =====================================================================
    MOTIVATION
    ===================================================================== */
-const MANTRAS = ["No hace falta tener ganas. Hace falta empezar.", "La versión mínima cuenta. Siempre.", "Hoy no buscás el entrenamiento perfecto. Buscás no cortar la racha.", "En el último cuarto se nota lo que hiciste a las 7 de la mañana.", "Primero los pies al piso. Lo demás viene solo.", "Cansado también se entrena. Más liviano, pero se entrena.", "Tu cabeza negocia. Vos no le contestes: ponete las zapatillas.", "Cada mañana que vas, el próximo lunes es más fácil.", "Diez minutos. Si después de diez minutos te querés ir, te vas."];
+const MANTRAS = ["No hace falta tener ganas. Hace falta empezar.", "La versión mínima cuenta. Siempre.", "Hoy no buscás el entrenamiento perfecto. Buscás no cortar la racha.", "En la cancha y en el espejo se nota lo que hiciste a las 6 de la mañana.", "Primero los pies al piso. Lo demás viene solo.", "Cansado también se entrena. Más liviano, pero se entrena.", "Tu cabeza negocia. Vos no le contestes: ponete las zapatillas.", "Cada mañana que vas, el próximo lunes es más fácil.", "Diez minutos. Si después de diez minutos te querés ir, te vas."];
 const NOGANAS = [
   { t: "Respirá 3 veces lento.", d: "No tenés que decidir nada todavía." },
   { t: "Hacé solo el primer paso.", d: "Ponete las zapatillas. Nada más. Después vemos." },
@@ -491,14 +481,15 @@ const NOGANAS = [
 /* =====================================================================
    STATE + STORAGE
    ===================================================================== */
-const DEFAULT_SETTINGS = { commute: 25, basketTime: "20:00", week: ["rest", "A", "B", "basket", "C", "D", "basket"], restBoost: 0, why: "", startDate: null, shop: {} };
+const DEFAULT_SETTINGS = { v: 3, commute: 25, gymDrive: 15, week: ["rest", "A", "B", "rest", "C", "D", "E"], restBoost: 0, why: "", startDate: null, shop: {}, skills: {} };
+function migrateSettings(x) { x = { ...DEFAULT_SETTINGS, ...(x || {}) }; if (x.v !== 3) { x.week = [...DEFAULT_SETTINGS.week]; x.v = 3; delete x.basketTime; x._migrated = 1; } x.week = x.week.map(w => DAYTYPE[w] ? w : "rest"); return x; }
 let S = { settings: { ...DEFAULT_SETTINGS }, days: {}, weights: {}, sessions: [], active: null };
 let tab = "hoy";
 const LS = "gym-notebook-v2";
 const lsLoad = () => { try { return JSON.parse(localStorage.getItem(LS)) || null; } catch { return null; } };
 const lsSave = () => { try { localStorage.setItem(LS, JSON.stringify(S)); } catch {} };
 const local = lsLoad();
-if (local) { S = { ...S, ...local, settings: { ...DEFAULT_SETTINGS, ...(local.settings || {}) } }; }
+if (local) { S = { ...S, ...local, settings: migrateSettings(local.settings) }; }
 else { try { const old = JSON.parse(localStorage.getItem("gym-notebook-v1")); if (old?.sessions) S.sessions = old.sessions; } catch {} }
 
 let remote = null; // {put(id,data), del(id)}
@@ -540,7 +531,7 @@ async function initDb() {
     for (const d of snap.docs) {
       const v = d.data() || {}, k = d.id;
       if (!fresh(k)) { if (v.kind === "session") { const mine = S.sessions.find(x => x.id === k) || (S.active?.id === k ? S.active : null); if (mine) (mine.finished ? sessions.push(mine) : active = mine); } continue; }
-      if (k === "settings") S.settings = { ...DEFAULT_SETTINGS, ...v };
+      if (k === "settings") { S.settings = migrateSettings(v); if (S.settings._migrated) { delete S.settings._migrated; saveSettings(); } }
       else if (k.startsWith("day-")) S.days[k.slice(4)] = v;
       else if (k.startsWith("w-")) S.weights[k.slice(2)] = v;
       else if (v.kind === "session") { if (v.finished) sessions.push({ ...v, id: k }); else active = { ...v, id: k }; }
@@ -556,50 +547,68 @@ async function initDb() {
    SCHEDULE
    ===================================================================== */
 const typeOf = d => S.settings.week[d.getDay()] || "rest";
-const isGym = t => "ABCD".includes(t) && t.length === 1;
-const toMin = s => { const [h, m] = String(s).split(":").map(Number); return h * 60 + (m || 0); };
+const isGym = t => !!SESS[t];
 function gymTimes() {
-  const C = Math.max(0, +S.settings.commute || 0);
-  const leave = 9 * 60 + 30 - C - 5;
-  const home = leave - 40, leaveGym = home - 15, train = leaveGym - 65, leaveHome = train - 15, wake = leaveHome - 25;
-  return { leave, home, leaveGym, train, leaveHome, wake, pre: wake + 5 };
+  const C = Math.max(0, +S.settings.commute || 0), G = Math.max(0, +S.settings.gymDrive || 0);
+  const leave = 9 * 60 + 30 - 10 - C;       // llegar 10 min antes
+  const dress = leave - 15;                 // vestirse + bolso de oficina
+  const breakfast = dress - 20;             // desayunar sentado
+  const shower = breakfast - 15;            // = llegada a casa
+  const leaveGym = shower - G - 5;          // vestuario + caminar al auto
+  const train = leaveGym - 60;              // 10 calentar + 40 bloque + 10 cardio/estirar
+  const arrive = train - 10;                // estacionar + vestuario
+  const leaveHome = arrive - G;
+  const pre = leaveHome - 10;
+  const wake = pre - 15;
+  return { leave, dress, breakfast, shower, leaveGym, train, arrive, leaveHome, pre, wake };
 }
 function scheduleFor(date) {
-  const t = typeOf(date), dow = date.getDay(), office = dow >= 1 && dow <= 5;
-  const G = gymTimes(), items = [];
-  const tomorrow = typeOf(addDays(date, 1));
+  const t = typeOf(date), dow = date.getDay(), weekend = dow === 0 || dow === 6;
+  const G = gymTimes(), items = [], drive = +S.settings.gymDrive || 0;
+  const tomorrowDate = addDays(date, 1), tomorrow = typeOf(tomorrowDate), tWeekend = tomorrowDate.getDay() === 0 || tomorrowDate.getDay() === 6;
   const it = (min, key, title, detail, extra = {}) => items.push({ min, key, title, detail, ...extra });
-  if (isGym(t)) {
+  const wakeTxt = "Alarma lejos de la cama. Apenas suena: pies al piso, vaso grande de agua, prendé la luz. No negocies con vos mismo.";
+  if (isGym(t) && !weekend) {
     const s = SESS[t];
-    it(G.wake, "wake", "Arriba. Pies al piso.", "Apenas suena la alarma: pies al piso, vaso grande de agua, prendé la luz. No negocies con vos mismo.", { kind: "wake" });
-    it(G.pre, "pre", "Pre-entreno + café", "Algo chico: banana o tostada con miel.", { meal: "pre" });
-    it(G.leaveHome, "go-gym", "Salí para el gym", "El bolso ya está listo desde anoche. Solo agarralo y salí.", { kind: "go" });
-    it(G.train, "workout", `Gym ${t}: ${s.name}`, `${s.goal} Unos ${sessMinutes(s)} min.`, { mission: true, action: "workout" });
-    it(G.home, "breakfast", "Ducha + desayuno fuerte", "Proteína + carbohidrato. Es tu comida más importante hoy.", { meal: "breakfast" });
+    it(G.wake, "wake", "Arriba. Pies al piso.", wakeTxt, { kind: "wake" });
+    it(G.pre, "pre", "Café + algo chico", "Banana o tostada con miel. Te vestís con la ropa que dejaste lista.", { meal: "pre" });
+    it(G.leaveHome, "go-gym", "Salí para el gym", `El bolso ya está listo desde anoche. ${drive} min de manejo.`, { kind: "go" });
+    it(G.arrive, "arrive", "Estacioná y cambiate", "Tenés 10 minutos. Llenás la botella y vas a la zona de entrenamiento.", { kind: "go" });
+    it(G.train, "workout", `Gym ${t}: ${s.name}`, `Calentar 10 min · ejercicios 40 min · cardio suave y estirar 10 min. Terminás a las ${hm(G.leaveGym)}.`, { mission: true, action: "workout" });
+    it(G.leaveGym, "go-home", "Salí del gym", "Sin ducha en el gym: te bañás tranquilo en casa.", { kind: "go" });
+    it(G.shower, "shower", "Ducha (15 min)", "Llegaste a casa. Directo a la ducha.", { kind: "home" });
+    it(G.breakfast, "breakfast", "Desayuno fuerte (20 min)", "Sentado, sin apuro. Proteína + carbohidrato: es tu comida más importante hoy.", { meal: "breakfast" });
+    it(G.dress, "dress", "Vestite y armá el bolso de la oficina", "Merienda, botella de agua, cargador.", { kind: "home" });
+    it(G.leave, "go-office", "Salí a la oficina", `Llegás 9:20, con 10 minutos de margen.`, { kind: "go" });
+  } else if (isGym(t)) {
+    const s = SESS[t];
+    it(8 * 60, "wake", "Arriba. Pies al piso.", "Fin de semana: un poco más de sueño, pero no más que esto para no desarmar la semana.", { kind: "wake" });
+    it(8 * 60 + 15, "breakfast", "Desayuno", "Liviano: entrenás en 2 horas.", { meal: "breakfastLight" });
+    it(9 * 60 + 50 - drive, "go-gym", "Salí para el gym", "Bolso, botella y listo.", { kind: "go" });
+    it(10 * 60, "workout", `Gym ${t}: ${s.name}`, `Unos ${sessMinutes(s)} min con calentamiento y estiramiento.`, { mission: true, action: "workout" });
+    it(13 * 60, "lunch", "Almuerzo post-entreno", "Buen plato de proteína + carbohidrato.", { meal: "lunch" });
+  } else if (!weekend) {
+    const wake = G.wake + 60;
+    it(wake, "wake", "Arriba. Pies al piso.", "Día sin gym: dormís una hora más, pero misma rutina de despertar. Nada de celular en la cama.", { kind: "wake" });
+    it(wake + 10, "mob", "Movilidad 10 min", "Caderas, tobillos, espalda y hombros en el living. Te despierta y te hace más ágil.", { kind: "mob" });
+    it(wake + 30, "breakfast", "Desayuno", "Proteína primero.", { meal: "breakfastLight" });
+    it(G.leave, "go-office", "Salí a la oficina", "Llevá la merienda.", { kind: "go" });
   } else {
-    const wake = G.wake + 45;
-    it(wake, "wake", "Arriba. Pies al piso.", "Día sin gym, pero misma rutina de despertar: agua, luz, nada de celular en la cama.", { kind: "wake" });
-    it(wake + 10, "mob", "Movilidad 10 min", "Caderas, tobillos y espalda. Te prepara para el basket y te despierta.", { kind: "mob" });
-    it(wake + 25, "breakfast", "Desayuno", "Proteína primero.", { meal: "breakfastLight" });
+    it(8 * 60, "wake", "Arriba. Pies al piso.", "Domingo: dormiste más, pero levantate a esta hora para no arruinar el lunes.", { kind: "wake" });
+    it(8 * 60 + 20, "breakfast", "Desayuno", "Proteína primero.", { meal: "breakfastLight" });
+    it(11 * 60, "prep", "Meal prep (1 hora)", "Cociná la semana de una vez. Te ahorra decisiones de lunes a jueves.", { kind: "prep" });
   }
-  if (office) it(G.leave, "go-office", "Salí a la oficina", "Llevá la merienda que preparaste.", { kind: "go" });
-  it(13 * 60, "lunch", office ? "Almuerzo: armá el plato" : "Almuerzo", "2 palmas de proteína, 1 puño de carbohidrato, mitad del plato verdura.", { meal: "lunch" });
-  it(16 * 60 + 30, "snack", "Merienda con proteína", "La que trajiste de casa.", { meal: "snack" });
-  if (t === "basket") {
-    const b = toMin(S.settings.basketTime || "20:00");
-    it(b - 75, "prebasket", "Snack antes del basket", "Carbohidrato rápido y 500 ml de agua.", { meal: "prebasket" });
-    it(b, "basket", "Basket", "Calentá 5 min antes de jugar. Corré cada pelota: es tu cardio.", { mission: true, kind: "basket" });
-    it(b + 105, "dinner", "Cena post-basket", "Sumá un puño extra de carbohidrato.", { meal: "dinnerPost" });
-  } else {
-    if (t === "rest") {
-      if (!office) it(11 * 60, "prep", "Meal prep (1 hora)", "Cociná la semana de una vez. Te ahorra decisiones.", { kind: "prep" });
-      it(office ? 19 * 60 + 15 : 17 * 60, "walk", "Caminata 30–40 min", "Ritmo de charla. Suma un montón para bajar grasa.", { mission: true, kind: "walk" });
-    } else if (office) it(18 * 60 + 45, "steps", "10 min caminando", "Bajate una parada antes o da una vuelta. Despeja la cabeza.", { kind: "walk" });
-    it(20 * 60 + 15, "dinner", "Cena", "Proteína + verduras + un puño de carbohidrato.", { meal: "dinner" });
+  if (!items.some(i => i.key === "lunch")) it(13 * 60, "lunch", weekend ? "Almuerzo" : "Almuerzo: armá el plato", "2 palmas de proteína, 1 puño de carbohidrato, mitad del plato verdura.", { meal: "lunch" });
+  it(16 * 60 + 30, "snack", "Merienda con proteína", weekend ? "Algo de la lista." : "La que trajiste de casa.", { meal: "snack" });
+  if (!isGym(t)) {
+    if (weekend) it(17 * 60 + 30, "walk", "Caminata 40 min", "Ritmo de charla, con música o un podcast. Es tu misión de hoy.", { mission: true, kind: "walk" });
+    else it(18 * 60 + 40, "walk", "Al salir de la oficina: caminata 30 min", "Saliste 18:30. Antes de llegar a casa y tirarte al sillón, caminá 30 min. Es tu misión de hoy.", { mission: true, kind: "walk" });
   }
-  const nextGym = isGym(tomorrow);
-  it(21 * 60 + 45, "night", nextGym ? "Prepará mañana (5 min)" : "Cerrá el día (5 min)", nextGym ? "Bolso armado, ropa al lado de la cama, zapatillas en la puerta, pre-entreno a mano, merienda en la heladera, alarma lejos de la cama." : "Merienda para mañana en la heladera y alarma lejos de la cama.", { kind: "night", list: nextGym ? ["Bolso con ropa, toalla y botella", "Ropa de gym al lado de la cama", "Banana o tostada a mano", "Merienda en la heladera", "Alarma lejos de la cama"] : null });
-  it(nextGym ? 22 * 60 + 30 : 23 * 60, "sleep", "Celular afuera. A la cama.", nextGym ? `Mañana suena a las ${hm(G.wake)}. Dormir 7,5 h es parte del entrenamiento.` : "Dormir bien es lo que hace que mañana tengas ganas.", { kind: "sleep" });
+  it(20 * 60, "dinner", "Cena", "Proteína + verduras + un puño de carbohidrato. 2 horas antes de dormir.", { meal: "dinner" });
+  const earlyGym = isGym(tomorrow) && !tWeekend;
+  const nightMin = earlyGym ? 21 * 60 + 30 : 22 * 60 + 30;
+  it(nightMin, "night", earlyGym ? "Prepará mañana (5 min)" : "Cerrá el día (5 min)", earlyGym ? "Dejá todo listo para que mañana no tengas que pensar nada." : "Merienda para mañana y alarma lejos de la cama.", { kind: "night", list: earlyGym ? ["Bolso con ropa, toalla, botella y candado", "Ropa de gym al lado de la cama", "Banana o pan para la tostada a mano", "Merienda de la oficina en la heladera", "Llaves del auto en la puerta", "Alarma lejos de la cama"] : null });
+  it(nightMin + 30, "sleep", "Celular afuera. A la cama.", earlyGym ? `Luces apagadas a las ${hm(nightMin + 45)}. Mañana suena a las ${hm(G.wake)}. Dormir es parte del entrenamiento: ahí bajás grasa y crecés.` : "Dormir bien es lo que hace que mañana tengas ganas.", { kind: "sleep" });
   return items.sort((a, b) => a.min - b.min);
 }
 const dayState = k => (S.days[k] ||= { done: {}, skip: {} });
@@ -723,7 +732,8 @@ function viewGym() {
       <div class="exl">${SESS[s].items.map(it => `<button class="exi" data-act="exinfo" data-ex="${it.ex}"><span data-fig="${it.ex}"></span><span style="min-width:0"><span class="n">${esc(EX[it.ex].n)}</span><br><span class="p">${presc(it, ph)}</span></span><span aria-hidden="true">›</span></button>`).join("")}</div>
       ${s === t ? `<button class="btn primary big block" data-act="start" data-type="${s}">Empezar Gym ${s}</button>` : `<button class="btn block" data-act="start" data-type="${s}">Hacer este ahora</button>`}
     </div>`;
-  const others = ["A", "B", "C", "D"].filter(x => x !== next);
+  const others = ["A", "B", "C", "D", "E"].filter(x => x !== next);
+  const sk = S.settings.skills || {}, nextSkill = SKILLS.findIndex(x => !sk[x]);
   return `
     ${S.active ? `<button class="btn primary big block" data-act="resume">Seguir entrenamiento en curso</button>` : ""}
     <section class="block">
@@ -732,6 +742,10 @@ function viewGym() {
     </section>
     <div class="card"><div class="row between"><b>${esc(ph.name)}</b><span class="chip num">Semana ${wk}</span></div><p class="sub">${esc(ph.tip)}</p></div>
     <section class="block"><span class="label">${isGym(t) ? "Hoy te toca" : "El próximo"}</span>${sessCard(next)}</section>
+    <div class="card t-court"><div class="row between"><h3>Camino a la calistenia</h3><span class="chip num">${SKILLS.filter(x => sk[x]).length}/${SKILLS.length}</span></div>
+      <p class="sub small">Cada ejercicio tiene una versión más fácil y una más difícil. Cuando logres una meta, marcala.</p>
+      <div class="shop">${SKILLS.map((x, i) => `<label><input type="checkbox" id="sk-${i}" data-skill="${esc(x)}" ${sk[x] ? "checked" : ""}><span>${i === nextSkill ? `<b>${esc(x)}</b> <span class="chip">próxima</span>` : esc(x)}</span></label>`).join("")}</div>
+    </div>
     <section class="block"><span class="label">Los otros días</span>
       ${others.map(s => `<button class="exi ${typeClass(SESS[s].zone)}" data-act="sessinfo" data-type="${s}" style="grid-template-columns:44px 1fr auto"><span class="wd" style="border:0;background:none;padding:0"><span class="k">${s}</span></span><span style="min-width:0"><span class="n">${esc(SESS[s].name)}</span><br><span class="p">${SESS[s].items.length} ejercicios · ≈${sessMinutes(SESS[s])} min</span></span><span>›</span></button>`).join("")}
     </section>
@@ -786,7 +800,7 @@ function viewFood() {
       <h3>¿Qué cocino con lo que tengo?</h3>
       <label class="sub small" for="fridge">Escribí lo que hay en tu heladera y te armo una comida que entre en el plan.</label>
       <textarea id="fridge" placeholder="Ej: pollo, arroz, 2 huevos, zapallito, queso"></textarea>
-      <div class="row"><select id="fridge-slot" class="grow" aria-label="Para qué comida">${["breakfast", "lunch", "snack", "dinner", "dinnerPost"].map(s => `<option value="${s}">${MEALS[s].name}</option>`).join("")}</select><button class="btn primary" data-act="ai-meal">Armame algo</button></div>
+      <div class="row"><select id="fridge-slot" class="grow" aria-label="Para qué comida">${["breakfast", "lunch", "snack", "dinner"].map(s => `<option value="${s}">${MEALS[s].name}</option>`).join("")}</select><button class="btn primary" data-act="ai-meal">Armame algo</button></div>
       <div id="ai-meal-out" class="ai-out" hidden></div>
     </div>` : ""}
     <div class="card"><h3>Meal prep del domingo (1 hora)</h3><p class="sub small">Cocinás una vez, comés bien 4 días sin pensar.</p><ul>${PREP.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
@@ -829,7 +843,7 @@ function viewMe() {
     <div class="card">
       <div class="row between"><h3>Últimas 4 semanas</h3><span class="chip num">${streak()} días de racha</span></div>
       <div class="cal">${["L", "M", "M", "J", "V", "S", "D"].map(x => `<span class="label" style="text-align:center">${x}</span>`).join("")}${cells.join("")}</div>
-      <p class="sub small">Verde = cumpliste la misión del día (gym, basket o caminata). ${misses} entrenamientos registrados.</p>
+      <p class="sub small">Verde = cumpliste la misión del día (gym o caminata). ${misses} entrenamientos registrados.</p>
     </div>
     <div class="card">
       <h3>Mi porqué</h3>
@@ -840,12 +854,12 @@ function viewMe() {
       <h3>Ajustes</h3>
       <div class="set-grid">
         <label for="commute">Viaje casa → oficina (min)<input id="commute" inputmode="numeric" value="${esc(S.settings.commute)}"></label>
-        <label for="basketTime">Hora del basket<input id="basketTime" type="time" value="${esc(S.settings.basketTime)}"></label>
+        <label for="gymDrive">Viaje casa → gym (min)<input id="gymDrive" inputmode="numeric" value="${esc(S.settings.gymDrive)}"></label>
       </div>
-      <p class="sub small">Con ${S.settings.commute} min de viaje te despertás a las <b class="num">${hm(gymTimes().wake)}</b> los días de gym y entrenás a las <b class="num">${hm(gymTimes().train)}</b>.</p>
+      <p class="sub small">Con ${S.settings.commute} min de viaje te despertás a las <b class="num">${hm(gymTimes().wake)}</b> los días de gym y salís del gym a las <b class="num">${hm(gymTimes().leaveGym)}</b> y llegás a la oficina a las 9:20.</p>
       <span class="label">Qué hacés cada día</span>
       <div class="set-grid">${[1, 2, 3, 4, 5, 6, 0].map(wd => `<label for="wk-${wd}">${DOW_L[wd]}<select id="wk-${wd}" data-week="${wd}">${Object.keys(DAYTYPE).map(x => `<option value="${x}" ${S.settings.week[wd] === x ? "selected" : ""}>${DAYTYPE[x].label}${SESS[x] ? " · " + SESS[x].name : ""}</option>`).join("")}</select></label>`).join("")}</div>
-      <p class="sub small">Tip: no pongas Gym A o C (piernas) el día antes del basket.</p>
+      <p class="sub small">Recomendado: 5 días (4 fuertes + el sábado corto). Si un día no podés, mové ese entrenamiento, no lo saltees.</p>
       <button class="btn sm ghost" data-act="restart">Reiniciar el programa desde la semana 1</button>
     </div>`;
 }
@@ -862,11 +876,14 @@ function drawSpark() {
 /* =====================================================================
    SHEETS
    ===================================================================== */
+const ZONE_NAME = { legs: "Piernas / potencia", upper: "Empuje", court: "Tirón / agarre", rest: "Core / motor" };
+const progHtml = ex => ex.easier ? `<div class="card" style="padding:12px 14px;gap:6px"><div class="small"><b>Si cuesta:</b> ${esc(ex.easier)}</div><div class="small"><b>Si sale fácil:</b> ${esc(ex.harder)}</div></div>` : "";
 function sheetEx(id) {
   const ex = EX[id];
-  sheet(`<div class="${typeClass(ex.zone)}"><span class="tag"><i class="dot"></i>${ex.zone === "legs" ? "Piernas / potencia" : "Torso"}</span><h2>${esc(ex.n)}</h2></div>
+  sheet(`<div class="${typeClass(ex.zone)}"><span class="tag"><i class="dot"></i>${ZONE_NAME[ex.zone] || ""}</span><h2>${esc(ex.n)}</h2></div>
     <span data-fig="${id}" data-cls="bigfig"></span>
     <ol class="cues">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ol>
+    ${progHtml(ex)}
     <a class="btn block" href="${yt(ex.q)}" target="_blank" rel="noopener">Ver videos en YouTube ↗</a>
     <button class="btn ghost" data-close="1">Cerrar</button>`);
 }
@@ -926,7 +943,7 @@ function nextStep() {
   if (a.setIdx < e.sets.length - 1) { a.setIdx++; }
   else {
     a.idx++; a.setIdx = 0;
-    if (a.idx >= a.exercises.length) { a.idx = a.exercises.length - 1; F = { phase: "done" }; persist(); return renderFocus(); }
+    if (a.idx >= a.exercises.length) { a.idx = a.exercises.length - 1; F = { phase: a.minimal ? "done" : "cool" }; persist(); return renderFocus(); }
   }
   persist(); F = { phase: "work" }; renderFocus();
 }
@@ -957,8 +974,11 @@ function renderFocus() {
   const top = `<div class="fbar"><button class="btn sm" data-act="f-close" aria-label="Salir del modo foco">✕</button><div class="bar"><i style="width:${Math.round(100 * done / Math.max(1, total))}%"></i></div><span class="num small">${done}/${total}</span><button class="btn sm" data-act="f-list">Lista</button></div>`;
   let body = "";
   if (F.phase === "warm") {
-    body = `<div class="restview"><span class="label">Paso 1 · 8 minutos</span><h2>Calentamiento</h2><div class="card" style="text-align:left;width:100%"><ul>${WARMUP.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Subí el pulso y mové todo. Con esto ya arrancaste: lo más difícil ya pasó.</p>${a.minimal ? `<span class="chip">Versión mínima: 3 ejercicios</span>` : ""}</div>
+    body = `<div class="restview"><span class="label">Paso 1 · 10 minutos</span><h2>Calentamiento</h2><div class="card" style="text-align:left;width:100%"><ul>${WARMUP.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Subí el pulso y mové todo. Con esto ya arrancaste: lo más difícil ya pasó.</p>${a.minimal ? `<span class="chip">Versión mínima: 3 ejercicios</span>` : ""}</div>
       <button class="btn primary big block" data-act="f-warmdone">Listo, vamos</button>`;
+  } else if (F.phase === "cool") {
+    body = `<div class="restview"><span class="label">Último paso · 10 minutos</span><h2>Cardio suave y estirar</h2><div class="card" style="text-align:left;width:100%"><ul>${COOLDOWN.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Bajá las pulsaciones. Mañana te vas a mover mejor.</p></div>
+      <button class="btn primary big block" data-act="f-cooldone">Listo, terminé</button>`;
   } else if (F.phase === "done") {
     body = `<div class="restview"><h2>¡Terminaste!</h2><p class="mantra">Hoy le ganaste a tu cabeza.</p><div class="stats" style="width:100%"><div class="stat"><div class="v num">${done}</div><div class="k">series</div></div><div class="stat"><div class="v num">${Math.round((Date.now() - a.start) / 60000)}′</div><div class="k">minutos</div></div><div class="stat"><div class="v num">${Math.round(volume(a))}</div><div class="k">kg totales</div></div></div><p class="sub">Ahora: ducha y desayuno fuerte.</p></div>
       <button class="btn primary big block" data-act="f-finish">Guardar y cerrar</button>`;
@@ -985,7 +1005,7 @@ function renderFocus() {
           <div class="presc">Serie ${si + 1} de ${e.sets.length} · objetivo ${e.target}${timed ? " s" : " reps"}${e.each ? " por lado" : ""}</div>
           ${dots}
         </div>
-        <details class="card" style="padding:12px 14px"><summary style="cursor:pointer;font-weight:600">Cómo se hace</summary><ol class="cues" style="margin-top:8px">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ol><a class="btn sm" href="${yt(ex.q)}" target="_blank" rel="noopener" style="margin-top:8px">Ver video ↗</a></details>
+        <details class="card" style="padding:12px 14px"><summary style="cursor:pointer;font-weight:600">Cómo se hace</summary><ol class="cues" style="margin-top:8px">${ex.cues.map(c => `<li>${esc(c)}</li>`).join("")}</ol><p class="small" style="margin-top:8px"><b>Si cuesta:</b> ${esc(ex.easier || "")}<br><b>Si sale fácil:</b> ${esc(ex.harder || "")}</p><a class="btn sm" href="${yt(ex.q)}" target="_blank" rel="noopener" style="margin-top:8px">Ver video ↗</a></details>
         ${timed ? "" : `<div class="steppers">
           ${ex.w ? `<label>kg<div class="stepper"><button data-act="f-step" data-f="kg" data-d="-${ex.step || 2.5}" aria-label="Menos peso">−</button><input id="f-kg" inputmode="decimal" value="${esc(set.kg)}" placeholder="0" data-ff="kg"><button data-act="f-step" data-f="kg" data-d="${ex.step || 2.5}" aria-label="Más peso">+</button></div></label>` : `<label>peso<div class="stepper" style="grid-template-columns:1fr"><input value="Corporal" disabled></div></label>`}
           <label>reps<div class="stepper"><button data-act="f-step" data-f="reps" data-d="-1" aria-label="Menos reps">−</button><input id="f-reps" inputmode="numeric" value="${esc(set.reps)}" data-ff="reps"><button data-act="f-step" data-f="reps" data-d="1" aria-label="Más reps">+</button></div></label>
@@ -1062,7 +1082,8 @@ document.addEventListener("click", ev => {
       break;
     }
     case "f-jump": { const a = S.active, i = +t.dataset.i; a.idx = i; const firstOpen = a.exercises[i].sets.findIndex(x => !x.done); a.setIdx = firstOpen < 0 ? 0 : firstOpen; clearInterval(fInt); persist(); closeSheet(); F = { phase: "work" }; renderFocus(); break; }
-    case "f-end": closeSheet(); if (!setsDone(S.active)) { toast("Hacé al menos una serie para guardarlo"); break; } F = { phase: "done" }; renderFocus(); break;
+    case "f-end": closeSheet(); if (!setsDone(S.active)) { toast("Hacé al menos una serie para guardarlo"); break; } clearInterval(fInt); F = { phase: "cool" }; renderFocus(); break;
+    case "f-cooldone": F = { phase: "done" }; renderFocus(); break;
     case "f-finish": finishWorkout(); break;
     case "f-discard":
       if (t.dataset.sure) { const a = S.active; S.active = null; del(a.id); clearInterval(fInt); F = null; closeSheet(); $("#focus").innerHTML = ""; keepAwake(false); render(); }
@@ -1074,11 +1095,12 @@ document.addEventListener("input", ev => {
   const t = ev.target;
   if (t.dataset.ff && S.active) { const set = cur().sets[S.active.setIdx]; set[t.dataset.ff] = t.value.replace(",", "."); clearTimeout(t._t); t._t = setTimeout(persist, 600); }
   if (t.id === "why") { S.settings.why = t.value; clearTimeout(t._t); t._t = setTimeout(saveSettings, 800); }
+  if (t.id === "gymDrive") { const v = parseInt(t.value, 10); if (v >= 0 && v < 120) { S.settings.gymDrive = v; clearTimeout(t._t); t._t = setTimeout(() => { saveSettings(); render(); }, 900); } }
   if (t.id === "commute") { const v = parseInt(t.value, 10); if (v >= 0 && v < 180) { S.settings.commute = v; clearTimeout(t._t); t._t = setTimeout(() => { saveSettings(); render(); }, 900); } }
 });
 document.addEventListener("change", ev => {
   const t = ev.target;
-  if (t.id === "basketTime" && t.value) { S.settings.basketTime = t.value; saveSettings(); }
+  if (t.dataset.skill) { S.settings.skills = { ...(S.settings.skills || {}) }; if (t.checked) S.settings.skills[t.dataset.skill] = 1; else delete S.settings.skills[t.dataset.skill]; saveSettings(); if (t.checked) { confetti(); toast("¡Meta lograda! Seguí con la próxima."); } render(); }
   if (t.dataset.week) { S.settings.week[+t.dataset.week] = t.value; saveSettings(); render(); }
   if (t.dataset.shop) { S.settings.shop = { ...(S.settings.shop || {}), [t.dataset.shop]: t.checked }; if (!t.checked) delete S.settings.shop[t.dataset.shop]; saveSettings(); }
 });
@@ -1087,7 +1109,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet()
 /* =====================================================================
    CLAUDE (optional)
    ===================================================================== */
-const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket 2 veces por semana y entrena 4 días a la mañana. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
+const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket por diversión. Entrena 5 días a la mañana con una rutina funcional orientada a calistenia. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
 async function aiMeal() {
   const out = $("#ai-meal-out"), have = $("#fridge").value.trim(), slot = $("#fridge-slot").value;
   if (!have) { toast("Escribí qué tenés en la heladera"); return; }
