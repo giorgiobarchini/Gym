@@ -426,32 +426,42 @@ const EX = {
     props: [{ k: "line", x1: 40, y1: 68, x2: 20, y2: 42, w: 5 }, { k: "rect", x: 28, y: 66, w: 22, h: 4 }, { k: "line", x1: 40, y1: 70, x2: 40, y2: 91 }, { k: "plate", at: "a1", r: 7, dx: 4, dy: -3 }], A: { at: { j: "p", x: 40, y: 64 }, t: 322, q1: 15, s1: 117, ft1: 30, u1: 170, f1: 120 }, B: { at: { j: "p", x: 40, y: 64 }, t: 322, q1: 55, s1: 55, ft1: 145, u1: 170, f1: 120 } },
   pushdown: { n: "Extensión de tríceps en polea", zone: "upper", w: true, step: 2.5, q: "extensión de tríceps en polea", cues: ["Codos pegados a los costados, quietos.", "Estirá los brazos del todo abajo y apretá el tríceps.", "Subí lento hasta la altura del pecho."], easier: "Menos peso.", harder: "Pausa de 1 s abajo.",
     props: [{ k: "cable", from: "w1", x: 62, y: -8 }, { k: "bar", at: "w1" }], A: { at: { j: "a1", x: 46, y: 90 }, t: 8, u1: 178, f1: 40 }, B: { at: { j: "a1", x: 46, y: 90 }, t: 8, u1: 178, f1: 172 } },
+  cablefly: { n: "Cruce de poleas", zone: "upper", w: true, step: 2.5, view: "front", q: "cruce de poleas pecho", cues: ["Poleas altas, un paso adelante, codos apenas flexionados.", "Juntá las manos frente al pecho como si abrazaras un árbol.", "Volvé lento sintiendo el estiramiento del pecho."], easier: "Peck deck (máquina de aperturas).", harder: "Pausa de 1 s con las manos juntas.",
+    props: [{ k: "cable", from: "w1", x: 98, y: 2 }, { k: "cable", from: "w2", x: 2, y: 2 }],
+    A: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [71, 25], w1: [83, 31], e2: [29, 25], w2: [17, 31], p1: [55, 50], p2: [45, 50], k1: [57, 70], k2: [43, 70], a1: [58, 90], a2: [42, 90], t1: [63, 90], t2: [37, 90] },
+    B: { hd: [50, 13], s1: [58, 22], s2: [42, 22], e1: [64, 34], w1: [53, 42], e2: [36, 34], w2: [47, 42], p1: [55, 50], p2: [45, 50], k1: [57, 70], k2: [43, 70], a1: [58, 90], a2: [42, 90], t1: [63, 90], t2: [37, 90] } },
+  cablerow: { n: "Remo sentado en polea", zone: "court", w: true, step: 2.5, q: "remo sentado en polea baja", cues: ["Sentado, pies en la plataforma, rodillas apenas flexionadas.", "Tirá el agarre hacia el ombligo llevando los codos atrás y el pecho afuera.", "Volvé estirando los brazos y dejando que la espalda se estire."], easier: "Menos peso.", harder: "Pausa de 1 s con los codos atrás.",
+    props: [{ k: "rect", x: 22, y: 82, w: 24, h: 9 }, { k: "rect", x: 82, y: 66, w: 4, h: 25 }, { k: "cable", from: "w1", x: 84, y: 76 }, { k: "bar", at: "w1" }], A: { at: { j: "p", x: 34, y: 80 }, t: 28, q1: 92, s1: 100, ft1: 0, u1: 88, f1: 90 }, B: { at: { j: "p", x: 34, y: 80 }, t: 0, q1: 92, s1: 100, ft1: 0, u1: 212, f1: 85 } },
+  legext: { n: "Sillón de cuádriceps", zone: "legs", w: true, step: 2.5, q: "extensión de cuádriceps máquina", cues: ["Rodilla alineada con el eje de la máquina, rodillo sobre los tobillos.", "Estirá las piernas del todo y apretá el cuádriceps 1 segundo.", "Bajá lento, en 3 segundos."], easier: "Menos peso.", harder: "A una pierna.",
+    props: [{ k: "rect", x: 26, y: 64, w: 36, h: 5 }, { k: "line", x1: 28, y1: 64, x2: 24, y2: 36, w: 5 }, { k: "line", x1: 44, y1: 69, x2: 44, y2: 91 }, { k: "pad", at: "a1", dy: -3 }], A: { at: { j: "p", x: 38, y: 61 }, t: 352, q1: 90, s1: 182, ft1: 100, u1: 170, f1: 140 }, B: { at: { j: "p", x: 38, y: 61 }, t: 352, q1: 90, s1: 88, ft1: 20, u1: 170, f1: 140 } },
+  hammer: { n: "Curl martillo", zone: "court", w: true, step: 1, q: "curl martillo mancuernas", cues: ["Mancuernas con las palmas mirándose, como agarrando un martillo.", "Subí sin mover los codos.", "Trabaja el braquial: hace que el brazo se vea más ancho."], easier: "Alternando brazos.", harder: "Pausa arriba de 1 s.",
+    props: [{ k: "db", at: "w1" }], A: { at: { j: "a1", x: 48, y: 90 }, u1: 182, f1: 180 }, B: { at: { j: "a1", x: 48, y: 90 }, u1: 176, f1: 30 } },
 };
 
 /* =====================================================================
    PROGRAM
    ===================================================================== */
-const WARMUP = ["3 min de bici, cinta o soga suave", "10 sentadillas sin peso", "8 zancadas atrás con rotación por lado", "10 balanceos de pierna adelante/atrás por lado", "30 s colgado de la barra", "10 círculos de brazos + 8 flexiones lentas"];
-const COOLDOWN = ["5 min de bici o caminar suave en la cinta", "Flexores de cadera (zancada estática): 30 s por lado", "Isquios (pierna estirada): 30 s por lado", "Pecho y hombros en la pared: 30 s por lado", "Dorsales colgado o apoyado en el banco: 30 s", "Respirá lento 5 veces. Listo."];
+const WARMUP = ["4 min de bici o cinta suave", "Movilidad del día: círculos de hombros y brazos (torso) o sentadillas sin peso y balanceos de pierna (piernas)", "Primer ejercicio: 1 serie liviana de 12 reps", "Primer ejercicio: 1 serie media de 6 reps", "Listo: arrancan las series de verdad"];
+const COOLDOWN = ["5 min de bici o cinta inclinada suave", "Flexores de cadera (zancada estática): 30 s por lado", "Isquios (pierna estirada): 30 s por lado", "Pecho y hombros en la pared: 30 s por lado", "Dorsales colgado o apoyado en el banco: 30 s", "Respirá lento 5 veces. Listo."];
 const STAGE1 = {
-  A: { name: "Torso · Fuerza", short: "A", zone: "upper", goal: "Pesos pesados en pecho, espalda y hombros. Acá se construye la base.", items: [
-    { ex: "pushupx", sets: 3, reps: 3, rest: 45 }, { ex: "bench", sets: 3, reps: 6, rest: 150 }, { ex: "pullup", sets: 3, reps: 6, rest: 120 },
-    { ex: "ohp", sets: 3, reps: 8, rest: 90 }, { ex: "dbrow", sets: 3, reps: 10, rest: 60, each: true }, { ex: "lateral", sets: 3, reps: 15, rest: 45 } ] },
-  B: { name: "Piernas · Cuádriceps", short: "B", zone: "legs", goal: "Piernas grandes y fuertes: la base de cualquier salto.", items: [
-    { ex: "boxjump", sets: 3, reps: 3, rest: 60 }, { ex: "squat", sets: 3, reps: 6, rest: 150 }, { ex: "legpress", sets: 3, reps: 10, rest: 90 },
-    { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "calf", sets: 4, reps: 12, rest: 45 }, { ex: "plank", sets: 2, reps: 40, rest: 45 } ] },
-  C: { name: "Empuje · Volumen", short: "C", zone: "upper", goal: "Pecho, hombros y tríceps con más repeticiones para que crezcan.", items: [
-    { ex: "slam", sets: 3, reps: 5, rest: 45 }, { ex: "incline", sets: 4, reps: 10, rest: 90 }, { ex: "dips", sets: 3, reps: 8, rest: 90 },
-    { ex: "ohp", sets: 3, reps: 10, rest: 75 }, { ex: "lateral", sets: 3, reps: 15, rest: 45 }, { ex: "pushdown", sets: 3, reps: 12, rest: 45 } ] },
-  D: { name: "Tirón · Volumen", short: "D", zone: "court", goal: "Espalda ancha y brazos. La V que se ve de frente y de espaldas.", items: [
-    { ex: "swing", sets: 3, reps: 10, rest: 60 }, { ex: "latpull", sets: 4, reps: 10, rest: 90 }, { ex: "row", sets: 3, reps: 8, rest: 120 },
-    { ex: "facepull", sets: 3, reps: 15, rest: 45 }, { ex: "curl", sets: 3, reps: 12, rest: 45 }, { ex: "hangknee", sets: 3, reps: 10, rest: 60 } ] },
-  E: { name: "Piernas · Glúteo e isquios", short: "E", zone: "legs", goal: "La parte de atrás de las piernas: potencia para correr y saltar.", items: [
-    { ex: "broadjump", sets: 3, reps: 3, rest: 60 }, { ex: "rdl", sets: 3, reps: 8, rest: 120 }, { ex: "bulgarian", sets: 3, reps: 8, rest: 75, each: true },
-    { ex: "hipthrust", sets: 3, reps: 10, rest: 90 }, { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "calf", sets: 3, reps: 15, rest: 45 } ] },
+  A: { name: "Empuje · Pecho, hombros y tríceps", short: "A", zone: "upper", goal: "Pecho y hombros con un básico pesado y después aislamiento para que crezcan.", items: [
+    { ex: "bench", sets: 3, reps: 6, rest: 120 }, { ex: "incline", sets: 3, reps: 10, rest: 90 }, { ex: "cablefly", sets: 3, reps: 12, rest: 60 },
+    { ex: "ohp", sets: 3, reps: 10, rest: 90 }, { ex: "lateral", sets: 3, reps: 15, rest: 45 }, { ex: "pushdown", sets: 3, reps: 12, rest: 45 } ] },
+  B: { name: "Tirón · Espalda y bíceps", short: "B", zone: "court", goal: "Espalda ancha y gruesa, y bíceps con dos variantes.", items: [
+    { ex: "pullup", sets: 3, reps: 6, rest: 120 }, { ex: "row", sets: 3, reps: 8, rest: 120 }, { ex: "cablerow", sets: 3, reps: 10, rest: 75 },
+    { ex: "facepull", sets: 3, reps: 15, rest: 45 }, { ex: "curl", sets: 3, reps: 10, rest: 60 }, { ex: "hammer", sets: 3, reps: 12, rest: 45 } ] },
+  C: { name: "Piernas · Cuádriceps", short: "C", zone: "legs", goal: "Cuádriceps con sentadilla, prensa y sillón. Gemelos y abdomen al final.", items: [
+    { ex: "squat", sets: 3, reps: 6, rest: 150 }, { ex: "legpress", sets: 3, reps: 10, rest: 90 }, { ex: "legext", sets: 3, reps: 12, rest: 60 },
+    { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "calf", sets: 4, reps: 12, rest: 45 }, { ex: "hangknee", sets: 3, reps: 10, rest: 45 } ] },
+  D: { name: "Torso · Completo", short: "D", zone: "upper", goal: "Segunda vez en la semana para pecho, espalda, hombros y brazos.", items: [
+    { ex: "incline", sets: 3, reps: 8, rest: 90 }, { ex: "latpull", sets: 3, reps: 10, rest: 90 }, { ex: "dbrow", sets: 3, reps: 10, rest: 60, each: true },
+    { ex: "dips", sets: 3, reps: 8, rest: 90 }, { ex: "lateral", sets: 3, reps: 15, rest: 45 }, { ex: "curl", sets: 3, reps: 12, rest: 45 } ] },
+  E: { name: "Piernas · Isquios y glúteos", short: "E", zone: "legs", goal: "La parte de atrás de las piernas y segunda vez para cuádriceps.", items: [
+    { ex: "rdl", sets: 3, reps: 8, rest: 120 }, { ex: "hipthrust", sets: 3, reps: 10, rest: 90 }, { ex: "bulgarian", sets: 3, reps: 10, rest: 75, each: true },
+    { ex: "legcurl", sets: 3, reps: 12, rest: 60 }, { ex: "legext", sets: 2, reps: 15, rest: 60 }, { ex: "calf", sets: 3, reps: 15, rest: 45 } ] },
 };
 const STAGES = {
-  1: { name: "Etapa 1 · Construir músculo", short: "Construir", desc: "Hipertrofia comiendo en déficit: ganás músculo mientras bajás grasa. Cada músculo se entrena 2 veces por semana, con 10 a 16 series semanales. Cada sesión arranca con 1 ejercicio explosivo corto para no perder potencia.", next: "Pasás a la etapa 2 cuando estés cerca del 15% de grasa: más o menos 74–75 kg con la cintura 8–10 cm más chica, o a los 5–6 meses." },
+  1: { name: "Etapa 1 · Construir músculo", short: "Construir", desc: "Hipertrofia pura comiendo en déficit: ganás músculo mientras bajás grasa. Empuje, tirón, piernas, torso y piernas: cada músculo 2 veces por semana, 9 a 18 series semanales. Series de 6 a 15 reps dejando 1 o 2 en el tanque.", next: "Pasás a la etapa 2 cuando estés cerca del 15% de grasa: más o menos 74–75 kg con la cintura 8–10 cm más chica, o a los 5–6 meses." },
   2: { name: "Etapa 2 · Atleta", short: "Atleta", desc: "Potencia, agilidad, aire y calistenia sobre la base de músculo que construiste.", next: "Si perdés fuerza o masa, podés volver a la etapa 1 cuando quieras." },
 };
 const STAGE2 = {
@@ -542,8 +552,8 @@ const NOGANAS = [
 /* =====================================================================
    STATE + STORAGE
    ===================================================================== */
-const DEFAULT_SETTINGS = { v: 3, stage: 1, commute: 25, gymDrive: 15, week: ["rest", "A", "B", "rest", "C", "D", "E"], restBoost: 0, why: "", startDate: null, shop: {}, skills: {} };
-function migrateSettings(x) { x = { ...DEFAULT_SETTINGS, ...(x || {}) }; if (x.v !== 3) { x.week = [...DEFAULT_SETTINGS.week]; x.v = 3; delete x.basketTime; x._migrated = 1; } x.week = x.week.map(w => DAYTYPE[w] ? w : "rest"); return x; }
+const DEFAULT_SETTINGS = { v: 4, stage: 1, commute: 25, gymDrive: 15, week: ["rest", "A", "B", "C", "rest", "D", "E"], restBoost: 0, why: "", startDate: null, shop: {}, skills: {} };
+function migrateSettings(x) { x = { ...DEFAULT_SETTINGS, ...(x || {}) }; if (x.v !== 4) { x.week = [...DEFAULT_SETTINGS.week]; x.v = 4; delete x.basketTime; x._migrated = 1; } x.week = x.week.map(w => DAYTYPE[w] ? w : "rest"); return x; }
 let S = { settings: { ...DEFAULT_SETTINGS }, days: {}, weights: {}, sessions: [], active: null };
 let tab = "hoy";
 const LS = "gym-notebook-v2";
@@ -617,7 +627,7 @@ function gymTimes() {
   const breakfast = dress - 20;             // desayunar sentado
   const shower = breakfast - 15;            // = llegada a casa
   const leaveGym = shower - G - 5;          // vestuario + caminar al auto
-  const train = leaveGym - 60;              // 10 calentar + 40 bloque + 10 cardio/estirar
+  const train = leaveGym - 65;              // 7 calentar + 50 ejercicios + 8 cardio/estirar
   const arrive = train - 10;                // estacionar + vestuario
   const leaveHome = arrive - G;
   const pre = leaveHome - 10;
@@ -636,7 +646,7 @@ function scheduleFor(date) {
     it(G.pre, "pre", "Café + algo chico", "Banana o tostada con miel. Te vestís con la ropa que dejaste lista.", { meal: "pre" });
     it(G.leaveHome, "go-gym", "Salí para el gym", `El bolso ya está listo desde anoche. ${drive} min de manejo.`, { kind: "go" });
     it(G.arrive, "arrive", "Estacioná y cambiate", "Tenés 10 minutos. Llenás la botella y vas a la zona de entrenamiento.", { kind: "go" });
-    it(G.train, "workout", `Gym ${t}: ${s.name}`, `Calentar 10 min · ejercicios 40 min · cardio suave y estirar 10 min. Terminás a las ${hm(G.leaveGym)}.`, { mission: true, action: "workout" });
+    it(G.train, "workout", `Gym ${t}: ${s.name}`, `Calentar 7 min · ejercicios 50 min · cardio suave y estirar 8 min. Terminás a las ${hm(G.leaveGym)}.`, { mission: true, action: "workout" });
     it(G.leaveGym, "go-home", "Salí del gym", "Sin ducha en el gym: te bañás tranquilo en casa.", { kind: "go" });
     it(G.shower, "shower", "Ducha (15 min)", "Llegaste a casa. Directo a la ducha.", { kind: "home" });
     it(G.breakfast, "breakfast", "Desayuno fuerte (20 min)", "Sentado, sin apuro. Proteína + carbohidrato: es tu comida más importante hoy.", { meal: "breakfast" });
@@ -1038,10 +1048,10 @@ function renderFocus() {
   const top = `<div class="fbar"><button class="btn sm" data-act="f-close" aria-label="Salir del modo foco">✕</button><div class="bar"><i style="width:${Math.round(100 * done / Math.max(1, total))}%"></i></div><span class="num small">${done}/${total}</span><button class="btn sm" data-act="f-list">Lista</button></div>`;
   let body = "";
   if (F.phase === "warm") {
-    body = `<div class="restview"><span class="label">Paso 1 · 10 minutos</span><h2>Calentamiento</h2><div class="card" style="text-align:left;width:100%"><ul>${WARMUP.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Subí el pulso y mové todo. Con esto ya arrancaste: lo más difícil ya pasó.</p>${a.minimal ? `<span class="chip">Versión mínima: 3 ejercicios</span>` : ""}</div>
+    body = `<div class="restview"><span class="label">Paso 1 · 7 minutos</span><h2>Calentamiento</h2><div class="card" style="text-align:left;width:100%"><ul>${WARMUP.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Subí el pulso y mové todo. Con esto ya arrancaste: lo más difícil ya pasó.</p>${a.minimal ? `<span class="chip">Versión mínima: 3 ejercicios</span>` : ""}</div>
       <button class="btn primary big block" data-act="f-warmdone">Listo, vamos</button>`;
   } else if (F.phase === "cool") {
-    body = `<div class="restview"><span class="label">Último paso · 10 minutos</span><h2>Cardio suave y estirar</h2><div class="card" style="text-align:left;width:100%"><ul>${COOLDOWN.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Bajá las pulsaciones. Mañana te vas a mover mejor.</p></div>
+    body = `<div class="restview"><span class="label">Último paso · 8 minutos</span><h2>Cardio suave y estirar</h2><div class="card" style="text-align:left;width:100%"><ul>${COOLDOWN.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div><p class="sub">Bajá las pulsaciones. Mañana te vas a mover mejor.</p></div>
       <button class="btn primary big block" data-act="f-cooldone">Listo, terminé</button>`;
   } else if (F.phase === "done") {
     body = `<div class="restview"><h2>¡Terminaste!</h2><p class="mantra">Hoy le ganaste a tu cabeza.</p><div class="stats" style="width:100%"><div class="stat"><div class="v num">${done}</div><div class="k">series</div></div><div class="stat"><div class="v num">${Math.round((Date.now() - a.start) / 60000)}′</div><div class="k">minutos</div></div><div class="stat"><div class="v num">${Math.round(volume(a))}</div><div class="k">kg totales</div></div></div><p class="sub">Ahora: ducha y desayuno fuerte.</p></div>
@@ -1174,7 +1184,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet()
 /* =====================================================================
    CLAUDE (optional)
    ===================================================================== */
-const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket por diversión. Entrena 5 días a la mañana: etapa 1 de hipertrofia en déficit (torso, piernas, empuje, tirón, piernas). Más adelante pasa a una etapa atlética y de calistenia. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
+const PROFILE = "Usuario: hombre de 29 años, 84 kg con ~60 kg de masa magra, quiere bajar a 10–12% de grasa y ganar músculo. Juega basket por diversión. Entrena 5 días a la mañana: etapa 1 de hipertrofia en déficit (empuje, tirón, piernas, torso, piernas). Más adelante pasa a una etapa atlética y de calistenia. Objetivo diario: ~2150 kcal y 170 g de proteína. Tiene TDAH: necesita respuestas cortas, concretas y fáciles de seguir. Hablale de vos, en español rioplatense.";
 async function aiMeal() {
   const out = $("#ai-meal-out"), have = $("#fridge").value.trim(), slot = $("#fridge-slot").value;
   if (!have) { toast("Escribí qué tenés en la heladera"); return; }
